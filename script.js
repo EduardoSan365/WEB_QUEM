@@ -2,7 +2,43 @@
  * qüem Smart & Shop — Interactive UI Logic
  */
 
+// ==========================================================================
+// CONFIGURACIÓN DE CONTRASEÑA DE ACCESO
+// Puedes cambiar 'quem2026' por la clave que prefieras en cualquier momento
+// ==========================================================================
+const ACCESS_PASSWORD = 'quem';
+
+// Verificar si ya fue desbloqueado en esta pestaña/sesión
+window.checkPassword = function() {
+  const input = document.getElementById('lockPasswordInput');
+  const errorMsg = document.getElementById('lockErrorMsg');
+  const overlay = document.getElementById('lockscreenOverlay');
+
+  if (input && input.value.trim() === ACCESS_PASSWORD) {
+    sessionStorage.setItem('quem_auth_passed', 'true');
+    if (overlay) {
+      overlay.classList.add('unlocked');
+    }
+  } else {
+    if (errorMsg) {
+      errorMsg.classList.add('show');
+      setTimeout(() => errorMsg.classList.remove('show'), 3000);
+    }
+    if (input) {
+      input.value = '';
+      input.focus();
+    }
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
+  // Verificar estado de bloqueo al cargar
+  const overlay = document.getElementById('lockscreenOverlay');
+  if (sessionStorage.getItem('quem_auth_passed') === 'true') {
+    if (overlay) {
+      overlay.classList.add('unlocked');
+    }
+  }
   // Mobile Navigation Drawer Toggle
   const menuToggle = document.querySelector('.menu-toggle');
   const navMenu = document.querySelector('.nav-menu');

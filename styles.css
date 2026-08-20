@@ -252,7 +252,7 @@ a {
   padding: 0.5rem;
 }
 
-/* Mobile Menu Drawer */
+/* Mobile Menu Drawer & Responsive Navbar */
 @media (max-width: 992px) {
   .nav-menu {
     position: fixed;
@@ -275,6 +275,43 @@ a {
 
   .menu-toggle {
     display: block;
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    height: 64px;
+  }
+
+  .brand-logo-wordmark {
+    height: 30px;
+  }
+
+  .nav-actions {
+    gap: 0.6rem;
+  }
+
+  .nav-actions .btn {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.78rem;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+  }
+
+  .menu-toggle {
+    font-size: 1.3rem;
+    padding: 0.3rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand-logo-wordmark {
+    height: 26px;
+  }
+
+  .nav-actions .btn {
+    padding: 0.4rem 0.65rem;
+    font-size: 0.72rem;
   }
 }
 

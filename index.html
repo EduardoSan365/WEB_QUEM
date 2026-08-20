@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>qüem Smart &amp; Shop — La Solución Autónoma para tu Comunidad</title>
+  <meta name="description"
+    content="qüem Smart &amp; Shop (QeiShop) — Puntos de venta autónomos para edificios, barrios cerrados y empresas. Sin empleados, abierto 24/7 y control total.">
+
+  <!-- Dynamic Animated Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/quem-animated-u.svg" id="dynamicFavicon">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- ==========================================
+       HEADER & NAVIGATION
+       ========================================== -->
+  <header class="header" id="header">
+    <div class="container nav-wrapper">
+      <a href="#" class="brand-logo" aria-label="qüem Inicio">
+        <img src="assets/quem-wordmark-solo.png" alt="qüem" class="brand-logo-wordmark">
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="#hero" class="nav-link active">Inicio</a></li>
+        <li><a href="#about" class="nav-link">Qüem es?</a></li>
+        <li><a href="#how-it-works" class="nav-link">Como funciona</a></li>
+        <li><a href="#benefits" class="nav-link">Solución</a></li>
+        <li><a href="#smart-shop" class="nav-link">Smart Shop</a></li>
+        <li><a href="#contact" class="nav-link">Contacto</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#contact" class="btn btn-primary">
+          <span>Quiero mi Qüem</span>
+        </a>
+        <button class="menu-toggle" aria-label="Abrir menú de navegación">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================
+         HERO & MARQUEE AREA CON PARTICULAS INTERACTIVAS
+         ========================================== -->
+    <div class="hero-interactive-area" id="heroInteractiveArea">
+      <canvas id="heroParticlesCanvas" class="hero-particles-canvas"></canvas>
+
+      <!-- ==========================================
+           1. HERO (Montaje QeiShop Portada)
+           ========================================== -->
+      <section class="hero-section" id="hero">
+        <div class="hero-bg-glow"></div>
+        <div class="container hero-structure-grid">
+          <div class="hero-structure-content">
+            <!-- Lockup: Icono animado transparente ü con marco circular + Wordmark qüem SMART SHOP -->
+            <div class="hero-brand-lockup">
+              <div class="hero-live-badge">
+                <img src="assets/quem-animated-u.svg" alt="qüem Icono" class="hero-badge-gif">
+              </div>
+              <img src="assets/quem-wordmark.png" alt="qüem Smart Shop" class="hero-brand-wordmark">
+            </div>
+
+            <h1 class="hero-main-title">
+              Innovación <span class="highlight-cyan">24/7</span><br>
+              para tu comunidad
+            </h1>
+
+            <p class="hero-main-subtitle">
+              Transforma un espacio comun de tu comunidad en una tienda inteligente y autonoma. Sin personal, sin
+              horarios, sin friccion.
+            </p>
+
+            <!-- Badges de estado rápido -->
+            <div class="hero-badges-row">
+              <div class="badge-item">
+                <i class="fa-solid fa-clock"></i>
+                <span>Abierto 24/7</span>
+              </div>
+              <div class="badge-item">
+                <i class="fa-solid fa-user-slash"></i>
+                <span>Sin Empleados</span>
+              </div>
+              <div class="badge-item">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+                <span>Control Móvil</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-structure-visual">
+            <div class="hero-modern-display">
+              <div class="display-glow"></div>
+
+              <!-- Store Photo Slider Showcase -->
+              <div class="store-slider-container" id="heroStoreSlider">
+                <div class="slider-track">
+                  <div class="slide-item active">
+                    <img src="assets/store-1.png" alt="qüem Smart Shop - Fachada y Acceso" class="slide-img">
+                    <div class="slide-overlay-gradient"></div>
+                  </div>
+                  <div class="slide-item">
+                    <img src="assets/store-2.jpg" alt="qüem Smart Shop - Vista Interior y Góndolas" class="slide-img">
+                    <div class="slide-overlay-gradient"></div>
+                  </div>
+                  <div class="slide-item">
+                    <img src="assets/store-3.png" alt="qüem Smart Shop - Experiencia de Compra Autónoma"
+                      class="slide-img">
+                    <div class="slide-overlay-gradient"></div>
+                  </div>
+                  <div class="slide-item">
+                    <img src="assets/store-4.png" alt="qüem Smart Shop - Heladeras y Variedad de Congelados"
+                      class="slide-img">
+                    <div class="slide-overlay-gradient"></div>
+                  </div>
+                </div>
+
+                <!-- Slider Controls & Indicators -->
+                <div class="slider-indicators">
+                  <button class="slider-dot active" data-slide="0" aria-label="Foto 1"></button>
+                  <button class="slider-dot" data-slide="1" aria-label="Foto 2"></button>
+                  <button class="slider-dot" data-slide="2" aria-label="Foto 3"></button>
+                  <button class="slider-dot" data-slide="3" aria-label="Foto 4"></button>
+                </div>
+
+                <!-- 3 Floating Badges Overlaid on the Slider -->
+                <div class="iso-badge badge-top-left">
+                  <i class="fa-solid fa-bolt-lightning"></i>
+                  <span>100% Autónoma</span>
+                </div>
+
+                <div class="iso-badge badge-mid-right">
+                  <i class="fa-solid fa-clock"></i>
+                  <span>Sin Esperas</span>
+                </div>
+
+                <div class="iso-badge badge-bottom-left">
+                  <i class="fa-solid fa-shield-halved"></i>
+                  <span>Abierto 24/7</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================
+           MARQUEE BANNER ANIMADO
+           ========================================== -->
+      <div class="marquee-wrapper">
+        <div class="marquee-content">
+          <div class="marquee-item"><span>LAS 24 HS DEL DÍA</span><span class="dot">•</span></div>
+          <div class="marquee-item"><span>LOS 365 DÍAS DEL AÑO</span><span class="dot">•</span></div>
+          <div class="marquee-item"><span>SIN VENDEDORES</span><span class="dot">•</span></div>
+          <div class="marquee-item"><span>SIN FRICCIONES</span><span class="dot">•</span></div>
+          <div class="marquee-item"><span>AUTONOMÍA TOTAL</span><span class="dot">•</span></div>
+          <div class="marquee-item"><span>MONITOREO 24/7</span><span class="dot">•</span></div>
+          <!-- Repetición para loop infinito continuo -->
+          <div class="marquee-item"><span>LAS 24 HS DEL DÍA</span><span class="dot">•</span></div>
+          <div class="marquee-item"><span>LOS 365 DÍAS DEL AÑO</span><span class="dot">•</span></div>
+          <div class="marquee-item"><span>SIN VENDEDORES</span><span class="dot">•</span></div>
+          <div class="marquee-item"><span>SIN FRICCIONES</span><span class="dot">•</span></div>
+          <div class="marquee-item"><span>AUTONOMÍA TOTAL</span><span class="dot">•</span></div>
+          <div class="marquee-item"><span>MONITOREO 24/7</span><span class="dot">•</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         2. ¿QUÉ ES QÜEM? (QeiShop Concept)
+         ========================================== -->
+    <section class="section-container" id="about">
+      <div class="container">
+        <div class="placeholder-header">
+          <div class="section-label">Tienda Autónoma</div>
+          <h2>El futuro del retail, hoy.</h2>
+          <p>qüem es una tienda inteligente diseñada para transformar los espacios de tu comunidad en puntos de venta
+            autonomos sin friccion.</p>
+        </div>
+
+        <div class="grid-4-col">
+          <div class="card-feature">
+            <div class="card-icon">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <h3>Abierto 24/7</h3>
+            <p>Los usuarios compran cuando quieren. Genera ingresos a toda hora sin depender de horarios comerciales ni
+              personal.</p>
+          </div>
+
+          <div class="card-feature">
+            <div class="card-icon">
+              <i class="fa-solid fa-user-xmark"></i>
+            </div>
+            <h3>Sin Vendedores</h3>
+            <p>Reduce drásticamente los costos operativos. Sistema 100% self-service, rápido, fácil e intuitivo para el
+              usuario final.</p>
+          </div>
+
+          <div class="card-feature">
+            <div class="card-icon">
+              <i class="fa-solid fa-sliders"></i>
+            </div>
+            <h3>Control Total</h3>
+            <p>Gestiona stock, precios y visualiza métricas de venta en tiempo real desde nuestro exclusivo dashboard de
+              administración.</p>
+          </div>
+
+          <div class="card-feature">
+            <div class="card-icon">
+              <i class="fa-solid fa-gem"></i>
+            </div>
+            <h3>Mayor Plusvalía</h3>
+            <p>Eleva la categoría y cotización del inmueble sumando un amenity tecnológico de vanguardia que mejora la experiencia de vida diaria.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         3. CÓMO FUNCIONA
+         ========================================== -->
+    <section class="section-container bg-dark-alt" id="how-it-works">
+      <div class="container">
+        <div class="placeholder-header">
+          <div class="section-label">Experiencia de Usuario</div>
+          <h2>Comprar nunca fue tan simple.</h2>
+          <p>Cuatro pasos ágiles para una compra 100% autónoma y sin esperas.</p>
+        </div>
+
+        <div class="grid-4-col">
+          <div class="step-card">
+            <div class="step-number">01</div>
+            <div class="step-icon"><i class="fa-solid fa-door-open"></i></div>
+            <h4>Accede con la App</h4>
+            <p>Apertura de puerta y acceso seguro directamente desde la app.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">02</div>
+            <div class="step-icon"><i class="fa-solid fa-barcode"></i></div>
+            <h4>Elige los productos</h4>
+            <p>Escaneá cada producto para armar tu carrito de compra.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">03</div>
+            <div class="step-icon"><i class="fa-solid fa-credit-card"></i></div>
+            <h4>Realiza el pago</h4>
+            <p>Pago en efectivo o digital integrado en la App.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">04</div>
+            <div class="step-icon"><i class="fa-solid fa-circle-check"></i></div>
+            <h4>¡Listo!</h4>
+            <p>Retira tu compra sin filas ni demoras.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         4. BENEFICIOS / INFRAESTRUCTURA (qüem Tower)
+         ========================================== -->
+    <section class="section-container" id="benefits">
+      <div class="container">
+        <div class="placeholder-header">
+          <div class="section-label">Hardware &amp; Software Integrado</div>
+          <h2>Qeishop Tower es el Núcleo Operativo</h2>
+          <p>La combinación perfecta entre infraestructura física resistente y monitoreo digital avanzado.</p>
+        </div>
+
+        <div class="grid-4-col">
+          <div class="card-feature">
+            <div class="card-icon">
+              <i class="fa-solid fa-key"></i>
+            </div>
+            <h3>Gestión de Accesos</h3>
+            <p>Apertura inteligente de puertas y control por usuario en tiempo real.</p>
+          </div>
+
+          <div class="card-feature">
+            <div class="card-icon">
+              <i class="fa-solid fa-wallet"></i>
+            </div>
+            <h3>Cobros Múltiples</h3>
+            <p>Módulo híbrido, Integración de cobro en efectivo, billetera virtuales y tarjetas de credito/debito.</p>
+          </div>
+
+          <div class="card-feature">
+            <div class="card-icon">
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3>Monitoreo 24/7</h3>
+            <p>Supervisión continua para garantizar la seguridad de la tienda.</p>
+          </div>
+
+          <div class="card-feature">
+            <div class="card-icon">
+              <i class="fa-solid fa-boxes-stacked"></i>
+            </div>
+            <h3>Stock Inteligente</h3>
+            <p>Alertas automáticas de reposición para evitar quiebres de inventario.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         5. SMART MARKET (qüem en tu Espacio)
+         ========================================== -->
+    <section class="section-container bg-dark-alt" id="smart-shop">
+      <div class="container">
+        <div class="placeholder-header">
+          <div class="section-label">Adaptabilidad</div>
+          <h2>Pensado para cada comunidad</h2>
+          <p>Instalá un qüem donde la conveniencia y la inmediatez marcan la diferencia.</p>
+        </div>
+
+        <div class="grid-3-col">
+          <div class="space-card">
+            <div class="space-icon"><i class="fa-solid fa-building"></i></div>
+            <h3>Edificios &amp; Condominios</h3>
+            <p>MiniSHOP exclusivo para espacios comunes del edificio. Los vecinos compran sin salir a la calle.
+            </p>
+            <span class="space-tag">Conveniencia 24/7</span>
+          </div>
+
+          <div class="space-card">
+            <div class="space-icon"><i class="fa-solid fa-tree-city"></i></div>
+            <h3>Barrios Cerrados</h3>
+            <p>Un punto de venta autónomo cercano para compras de oportunidad o urgencia a cualquier hora.</p>
+            <span class="space-tag">Seguridad y Cercanía</span>
+          </div>
+
+          <div class="space-card">
+            <div class="space-icon"><i class="fa-solid fa-briefcase"></i></div>
+            <h3>Empresas &amp; Oficinas</h3>
+            <p>Snacks, bebidas y alimentos frescos para tus colaboradores dentro del entorno corporativo.</p>
+            <span class="space-tag">Bienestar Laboral</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         6. CONTACTO
+         ========================================== -->
+    <section class="section-container" id="contact">
+      <div class="container">
+        <div class="placeholder-header">
+          <div class="section-label">Comenzá Hoy</div>
+          <h2>¿Listo para transformar tu espacio?</h2>
+          <p>Dejanos tus datos y nos pondremos en contacto para ayudarte a construir juntos una tienda qüem para tu
+            comunidad.</p>
+        </div>
+
+        <div class="contact-box">
+          <form class="contact-form" id="contactForm" onsubmit="event.preventDefault();">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="name">Nombre Completo</label>
+                <input type="text" id="name" placeholder="Tu nombre" required>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" placeholder="tuemail@ejemplo.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="phone">Teléfono / WhatsApp</label>
+                <input type="tel" id="phone" placeholder="+54 9 11 ...">
+              </div>
+
+              <div class="form-group">
+                <label for="spaceType">Tipo de Comunidad</label>
+                <select id="spaceType" required>
+                  <option value="" disabled selected>Seleccioná una opción</option>
+                  <option value="edificio">Edificio / Condominio</option>
+                  <option value="barrio">Barrio Cerrado</option>
+                  <option value="empresa">Empresa / Oficina</option>
+                  <option value="otro">Otro espacio</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group full-width">
+              <label for="message">Mensaje o Consulta</label>
+              <textarea id="message" rows="4" placeholder="Contanos sobre tu comunidad o espacio..."></textarea>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary full-width-btn">
+                <span>ENVIAR CONSULTA</span>
+                <i class="fa-solid fa-paper-plane"></i>
+              </button>
+
+              <a href="https://wa.me/5491137341712" target="_blank" rel="noopener noreferrer"
+                class="btn btn-secondary full-width-btn whatsapp-btn">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span>Hablar por WhatsApp</span>
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================
+       7. FOOTER
+       ========================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <a href="#" class="brand-logo footer-brand-logo" aria-label="qüem Inicio">
+          <img src="assets/quem-animated-u.svg" alt="qüem Icono" class="footer-logo-u">
+          <img src="assets/quem-wordmark-solo.png" alt="qüem" class="footer-logo-wordmark">
+        </a>
+
+        <ul class="footer-nav">
+          <li><a href="#hero">INICIO</a></li>
+          <li><a href="#about">¿QUÉ ES QÜEM?</a></li>
+          <li><a href="#how-it-works">CÓMO FUNCIONA</a></li>
+          <li><a href="#benefits">BENEFICIOS</a></li>
+          <li><a href="#smart-shop">SMART SHOP</a></li>
+          <li><a href="#contact">CONTACTO</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 qüem Smart &amp; Shop. QeiShop impulsado por Qeiax.</p>
+        <p>Infraestructura inteligente para comunidades autónomas.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Social Media Bar -->
+  <div class="floating-social-bar">
+    <a href="#" target="_blank" rel="noopener noreferrer" class="social-float-btn youtube" aria-label="YouTube">
+      <i class="fa-brands fa-youtube"></i>
+    </a>
+    <a href="#" target="_blank" rel="noopener noreferrer" class="social-float-btn facebook" aria-label="Facebook">
+      <i class="fa-brands fa-facebook-f"></i>
+    </a>
+    <a href="#" target="_blank" rel="noopener noreferrer" class="social-float-btn instagram" aria-label="Instagram">
+      <i class="fa-brands fa-instagram"></i>
+    </a>
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/5491137341712" target="_blank" rel="noopener noreferrer" class="social-float-btn whatsapp"
+      aria-label="Contactar por WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

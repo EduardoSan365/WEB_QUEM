@@ -1,0 +1,18 @@
+# Logs & Archivos temporales
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependencias (si agregas Node en el futuro)
+node_modules/
+
+# Archivos de entorno y SO
+.DS_Store
+Thumbs.db
+.env
+.env.local
+
+# Archivos de prueba / scripts temporales
+generate_preview.js
+preview-*.html

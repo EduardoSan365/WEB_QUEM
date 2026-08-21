@@ -4,9 +4,9 @@
 
 // ==========================================================================
 // CONFIGURACIÓN DE CONTRASEÑA DE ACCESO
-// Puedes cambiar 'quem2026' por la clave que prefieras en cualquier momento
+// Puedes cambiar 'quemq2' por la clave que prefieras en cualquier momento
 // ==========================================================================
-const ACCESS_PASSWORD = 'quem';
+const ACCESS_PASSWORD = 'quemq2';
 
 // Verificar si ya fue desbloqueado en esta pestaña/sesión
 window.checkPassword = function() {

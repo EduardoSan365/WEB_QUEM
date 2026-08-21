@@ -28,31 +28,6 @@
 <body>
 
   <!-- ==========================================
-       LOCKSCREEN / PASSWORD GATE
-       ========================================== -->
-  <div class="lockscreen-overlay" id="lockscreenOverlay">
-    <div class="lockscreen-card">
-      <div class="lockscreen-logo">
-        <img src="assets/quem-animated-u.svg" alt="qüem Logo" class="lockscreen-u">
-      </div>
-      <img src="assets/quem-wordmark-solo.png" alt="qüem" class="lockscreen-wordmark">
-      <p class="lockscreen-desc">Acceso denegado al público. Ingrese la clave para desbloquear.</p>
-
-      <form class="lockscreen-form" id="lockscreenForm" onsubmit="event.preventDefault(); window.checkPassword();">
-        <div class="lockscreen-input-wrapper">
-          <i class="fa-solid fa-lock input-icon"></i>
-          <input type="password" id="lockPasswordInput" placeholder="Contraseña de acceso" autofocus required>
-        </div>
-        <div class="lockscreen-error" id="lockErrorMsg">Contraseña incorrecta. Intente nuevamente.</div>
-        <button type="submit" class="btn btn-primary lockscreen-btn">
-          <span>DESBLOQUEAR</span>
-          <i class="fa-solid fa-arrow-right"></i>
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- ==========================================
        HEADER & NAVIGATION
        ========================================== -->
   <header class="header" id="header">

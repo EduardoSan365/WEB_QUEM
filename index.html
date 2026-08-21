@@ -207,8 +207,11 @@
 
         <div class="grid-4-col">
           <div class="card-feature">
-            <div class="card-icon">
-              <i class="fa-solid fa-clock"></i>
+            <div class="card-icon-wrapper">
+              <div class="card-icon-glow"></div>
+              <div class="card-icon">
+                <i class="fa-solid fa-business-time"></i>
+              </div>
             </div>
             <h3>Abierto 24/7</h3>
             <p>Los usuarios compran cuando quieren. Genera ingresos a toda hora sin depender de horarios comerciales ni
@@ -216,8 +219,11 @@
           </div>
 
           <div class="card-feature">
-            <div class="card-icon">
-              <i class="fa-solid fa-user-xmark"></i>
+            <div class="card-icon-wrapper">
+              <div class="card-icon-glow"></div>
+              <div class="card-icon">
+                <i class="fa-solid fa-user-slash"></i>
+              </div>
             </div>
             <h3>Sin Vendedores</h3>
             <p>Reduce drásticamente los costos operativos. Sistema 100% self-service, rápido, fácil e intuitivo para el
@@ -225,8 +231,11 @@
           </div>
 
           <div class="card-feature">
-            <div class="card-icon">
-              <i class="fa-solid fa-sliders"></i>
+            <div class="card-icon-wrapper">
+              <div class="card-icon-glow"></div>
+              <div class="card-icon">
+                <i class="fa-solid fa-chart-line"></i>
+              </div>
             </div>
             <h3>Control Total</h3>
             <p>Gestiona stock, precios y visualiza métricas de venta en tiempo real desde nuestro exclusivo dashboard de
@@ -234,11 +243,15 @@
           </div>
 
           <div class="card-feature">
-            <div class="card-icon">
-              <i class="fa-solid fa-gem"></i>
+            <div class="card-icon-wrapper">
+              <div class="card-icon-glow"></div>
+              <div class="card-icon">
+                <i class="fa-solid fa-arrow-trend-up"></i>
+              </div>
             </div>
-            <h3>Mayor Plusvalía</h3>
-            <p>Eleva la categoría y cotización del inmueble sumando un amenity tecnológico de vanguardia que mejora la experiencia de vida diaria.</p>
+            <h3>Valor Agregado</h3>
+            <p>Eleva la categoría y cotización de las unidades funcionales sumando un amenity tecnológico
+              que mejora la experiencia de vida diaria.</p>
           </div>
         </div>
       </div>
@@ -256,14 +269,16 @@
 
           <!-- Store Download Buttons -->
           <div class="app-download-buttons">
-            <a href="#" class="store-badge-btn" target="_blank" rel="noopener noreferrer" aria-label="Disponible en Google Play">
+            <a href="#" class="store-badge-btn" target="_blank" rel="noopener noreferrer"
+              aria-label="Disponible en Google Play">
               <i class="fa-brands fa-google-play store-badge-icon play-icon"></i>
               <div class="store-badge-text">
                 <span class="store-badge-subtitle">DISPONIBLE EN</span>
                 <span class="store-badge-title">Google Play</span>
               </div>
             </a>
-            <a href="#" class="store-badge-btn" target="_blank" rel="noopener noreferrer" aria-label="Disponible en App Store">
+            <a href="#" class="store-badge-btn" target="_blank" rel="noopener noreferrer"
+              aria-label="Disponible en App Store">
               <i class="fa-brands fa-apple store-badge-icon apple-icon"></i>
               <div class="store-badge-text">
                 <span class="store-badge-subtitle">Disponible en</span>
@@ -275,31 +290,39 @@
 
         <div class="grid-4-col">
           <div class="step-card">
-            <div class="step-number">01</div>
-            <div class="step-icon"><i class="fa-solid fa-door-open"></i></div>
-            <h4>Accedé con la App</h4>
-            <p>Apertura de puerta y acceso seguro directamente desde la app.</p>
+            <div class="step-visual-container">
+              <img src="assets/step-1.jpg" alt="Paso 1: Entrás con tu smartphone" class="step-img-illustration">
+              <div class="step-img-glow"></div>
+            </div>
+            <h4>Entrás</h4>
+            <p>Abrí la puerta de forma rápida y 100% segura usando únicamente tu smartphone con la app qüem.</p>
           </div>
 
           <div class="step-card">
-            <div class="step-number">02</div>
-            <div class="step-icon"><i class="fa-solid fa-barcode"></i></div>
-            <h4>Elegí los productos</h4>
-            <p>Escaneá cada producto para armar tu carrito de compra.</p>
+            <div class="step-visual-container">
+              <img src="assets/step-2.jpg" alt="Paso 2: Escaneás tus productos" class="step-img-illustration">
+              <div class="step-img-glow"></div>
+            </div>
+            <h4>Escaneás</h4>
+            <p>Recorré la tienda libremente y escaneá los códigos con tu celular para armar tu carrito al instante.</p>
           </div>
 
           <div class="step-card">
-            <div class="step-number">03</div>
-            <div class="step-icon"><i class="fa-solid fa-credit-card"></i></div>
-            <h4>Realizá el pago</h4>
-            <p>Pago en efectivo o digital integrado en la App.</p>
+            <div class="step-visual-container">
+              <img src="assets/step-3.jpg" alt="Paso 3: Pagás con un tap" class="step-img-illustration">
+              <div class="step-img-glow"></div>
+            </div>
+            <h4>Pagás</h4>
+            <p>Aboná en segundos con billeteras virtuales, tarjetas de débito/crédito o dinero en efectivo.</p>
           </div>
 
           <div class="step-card">
-            <div class="step-number">04</div>
-            <div class="step-icon"><i class="fa-solid fa-circle-check"></i></div>
-            <h4>¡Listo!</h4>
-            <p>Retirá tu compra sin filas ni demoras.</p>
+            <div class="step-visual-container">
+              <img src="assets/step-4.jpg" alt="Paso 4: Salís y disfrutás tu compra" class="step-img-illustration">
+              <div class="step-img-glow"></div>
+            </div>
+            <h4>Salís</h4>
+            <p>Retirá tu compra sin hacer filas, sin esperas y con confirmación digital automática en tu pantalla.</p>
           </div>
         </div>
       </div>
@@ -318,35 +341,47 @@
 
         <div class="grid-4-col">
           <div class="card-feature">
-            <div class="card-icon">
-              <i class="fa-solid fa-key"></i>
+            <div class="card-icon-wrapper">
+              <div class="card-icon-glow"></div>
+              <div class="card-icon">
+                <i class="fa-solid fa-id-card-clip"></i>
+              </div>
             </div>
             <h3>Gestión de Accesos</h3>
-            <p>Apertura inteligente de puertas y control por usuario en tiempo real.</p>
+            <p>Apertura inteligente de puertas y control perimetral por usuario autenticado en tiempo real.</p>
           </div>
 
           <div class="card-feature">
-            <div class="card-icon">
-              <i class="fa-solid fa-wallet"></i>
+            <div class="card-icon-wrapper">
+              <div class="card-icon-glow"></div>
+              <div class="card-icon">
+                <i class="fa-solid fa-cash-register"></i>
+              </div>
             </div>
             <h3>Cobros Múltiples</h3>
-            <p>Módulo híbrido, integración de cobro en efectivo, billeteras virtuales y tarjetas de crédito/débito.</p>
+            <p>Módulo híbrido con integración de cobro en efectivo, billeteras digitales y tarjetas bancarias.</p>
           </div>
 
           <div class="card-feature">
-            <div class="card-icon">
-              <i class="fa-solid fa-shield-halved"></i>
+            <div class="card-icon-wrapper">
+              <div class="card-icon-glow"></div>
+              <div class="card-icon">
+                <i class="fa-solid fa-video"></i>
+              </div>
             </div>
             <h3>Monitoreo 24/7</h3>
-            <p>Supervisión continua para garantizar la seguridad de la tienda.</p>
+            <p>Supervisión continua con cámaras de alta definición y telemetría activa para máxima seguridad.</p>
           </div>
 
           <div class="card-feature">
-            <div class="card-icon">
-              <i class="fa-solid fa-boxes-stacked"></i>
+            <div class="card-icon-wrapper">
+              <div class="card-icon-glow"></div>
+              <div class="card-icon">
+                <i class="fa-solid fa-boxes-stacked"></i>
+              </div>
             </div>
             <h3>Stock Inteligente</h3>
-            <p>Alertas automáticas de reposición para evitar quiebres de inventario.</p>
+            <p>Alertas automáticas predictivas de reposición de mercadería para evitar quiebres de inventario.</p>
           </div>
         </div>
       </div>
@@ -365,25 +400,34 @@
 
         <div class="grid-3-col">
           <div class="space-card">
-            <div class="space-icon"><i class="fa-solid fa-building"></i></div>
+            <div class="space-icon-wrapper">
+              <div class="space-icon-glow"></div>
+              <div class="space-icon"><i class="fa-solid fa-city"></i></div>
+            </div>
             <h3>Edificios &amp; Condominios</h3>
             <p>MiniSHOP exclusivo para espacios comunes del edificio. Los vecinos compran sin salir a la calle.
             </p>
-            <span class="space-tag">Conveniencia 24/7</span>
+            <span class="space-tag"><i class="fa-solid fa-clock"></i> Conveniencia 24/7</span>
           </div>
 
           <div class="space-card">
-            <div class="space-icon"><i class="fa-solid fa-tree-city"></i></div>
+            <div class="space-icon-wrapper">
+              <div class="space-icon-glow"></div>
+              <div class="space-icon"><i class="fa-solid fa-tree-city"></i></div>
+            </div>
             <h3>Barrios Cerrados</h3>
             <p>Un punto de venta autónomo cercano para compras de oportunidad o urgencia a cualquier hora.</p>
-            <span class="space-tag">Seguridad y Cercanía</span>
+            <span class="space-tag"><i class="fa-solid fa-shield-halved"></i> Seguridad y Cercanía</span>
           </div>
 
           <div class="space-card">
-            <div class="space-icon"><i class="fa-solid fa-briefcase"></i></div>
+            <div class="space-icon-wrapper">
+              <div class="space-icon-glow"></div>
+              <div class="space-icon"><i class="fa-solid fa-building-user"></i></div>
+            </div>
             <h3>Empresas &amp; Oficinas</h3>
             <p>Snacks, bebidas y alimentos frescos para tus colaboradores dentro del entorno corporativo.</p>
-            <span class="space-tag">Bienestar Laboral</span>
+            <span class="space-tag"><i class="fa-solid fa-mug-hot"></i> Bienestar Laboral</span>
           </div>
         </div>
       </div>

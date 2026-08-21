@@ -987,12 +987,11 @@ a {
 
 /* Card Feature */
 .card-feature {
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: var(--radius-lg);
   padding: 2.2rem 1.8rem;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   transition: all var(--transition-normal);
   display: flex;
   flex-direction: column;
@@ -1000,33 +999,35 @@ a {
 }
 
 .card-feature:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-cyan);
+  background: #FFFFFF;
+  border-color: var(--cyan-primary);
   transform: translateY(-4px);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 249, 255, 0.15);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35), 0 0 25px rgba(0, 249, 255, 0.25);
 }
 
 .card-icon {
   width: 54px;
   height: 54px;
   border-radius: var(--radius-md);
-  background: rgba(0, 242, 254, 0.08);
-  border: 1px solid var(--border-cyan);
+  background: rgba(0, 242, 254, 0.12);
+  border: 1px solid rgba(0, 200, 220, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--cyan-primary);
+  color: #008fa0;
   font-size: 1.4rem;
   margin-bottom: 1.5rem;
 }
 
 .card-feature h3 {
+  color: #111111;
   font-size: 1.3rem;
   margin-bottom: 0.75rem;
+  font-weight: 800;
 }
 
 .card-feature p {
-  color: var(--text-muted);
+  color: #4b5563;
   font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: 1.2rem;
@@ -1037,18 +1038,18 @@ a {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--cyan-primary);
+  color: #008fa0;
   font-size: 0.88rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   transition: all var(--transition-normal);
   padding: 0.4rem 0;
-  border-bottom: 1px dashed rgba(0, 249, 255, 0.4);
+  border-bottom: 1px dashed rgba(0, 143, 160, 0.4);
 }
 
 .card-action-link:hover {
-  color: #FFFFFF;
-  border-bottom-color: var(--cyan-primary);
+  color: #000000;
+  border-bottom-color: #008fa0;
   transform: translateX(4px);
 }
 
@@ -1063,12 +1064,11 @@ a {
 
 /* Step Card (Cómo Funciona) */
 .step-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: var(--radius-md);
   padding: 1.8rem 1.25rem;
-  backdrop-filter: blur(16px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   text-align: center;
   position: relative;
   transition: all var(--transition-normal);
@@ -1078,18 +1078,18 @@ a {
 }
 
 .step-card:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--border-cyan);
+  background: #FFFFFF;
+  border-color: var(--cyan-primary);
   transform: translateY(-4px);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 249, 255, 0.12);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 249, 255, 0.25);
 }
 
 .step-number {
   font-family: var(--font-heading);
   font-size: 0.85rem;
   font-weight: 800;
-  color: var(--cyan-primary);
-  background: rgba(0, 242, 254, 0.1);
+  color: #008fa0;
+  background: rgba(0, 242, 254, 0.15);
   padding: 0.2rem 0.6rem;
   border-radius: var(--radius-full);
   margin-bottom: 1rem;
@@ -1097,51 +1097,140 @@ a {
 
 .step-icon {
   font-size: 2rem;
-  color: var(--text-main);
+  color: #111111;
   margin-bottom: 1rem;
 }
 
 .step-card h4 {
+  color: #111111;
   font-size: 1.05rem;
   margin-bottom: 0.5rem;
+  font-weight: 800;
 }
 
 .step-card p {
-  color: var(--text-muted);
+  color: #4b5563;
   font-size: 0.85rem;
   line-height: 1.5;
 }
 
+/* App Download Badges / Buttons (Experiencia de Usuario) */
+.app-download-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.store-badge-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 0.75rem 1.6rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  text-decoration: none;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: all var(--transition-normal);
+}
+
+.store-badge-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--cyan-primary);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 242, 254, 0.25);
+  color: #FFFFFF;
+}
+
+.store-badge-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.play-icon {
+  color: #00e5ff;
+  text-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+}
+
+.apple-icon {
+  color: #FFFFFF;
+}
+
+.store-badge-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.store-badge-subtitle {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.store-badge-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 480px) {
+  .app-download-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+  .store-badge-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* Space Card (Smart Market) */
 .space-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-card);
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: var(--radius-lg);
   padding: 2.2rem 1.8rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   transition: all var(--transition-normal);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
 .space-card:hover {
-  border-color: var(--border-cyan);
+  background: #FFFFFF;
+  border-color: var(--cyan-primary);
   transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 249, 255, 0.25);
 }
 
 .space-icon {
   font-size: 2.2rem;
-  color: var(--cyan-primary);
+  color: #008fa0;
   margin-bottom: 1.25rem;
 }
 
 .space-card h3 {
+  color: #111111;
   font-size: 1.3rem;
   margin-bottom: 0.75rem;
+  font-weight: 800;
 }
 
 .space-card p {
-  color: var(--text-muted);
+  color: #4b5563;
   font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: 1.5rem;
@@ -1151,11 +1240,11 @@ a {
   margin-top: auto;
   font-size: 0.78rem;
   font-weight: 700;
-  color: var(--cyan-primary);
-  background: rgba(0, 242, 254, 0.08);
+  color: #008fa0;
+  background: rgba(0, 242, 254, 0.12);
   padding: 0.35rem 0.8rem;
   border-radius: var(--radius-full);
-  border: 1px solid var(--border-cyan);
+  border: 1px solid rgba(0, 200, 220, 0.4);
 }
 
 /* Contact Section & Form */

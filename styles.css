@@ -1137,7 +1137,7 @@ a {
   background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: var(--radius-lg);
-  padding: 2.4rem 1.6rem 2.2rem 1.6rem;
+  padding: 2rem 1.4rem 2rem 1.4rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   text-align: center;
   position: relative;
@@ -1158,11 +1158,12 @@ a {
 /* Step Visual Storytelling Container */
 .step-visual-container {
   position: relative;
-  width: 175px;
-  height: 175px;
+  width: 210px;
+  height: 210px;
+  max-width: 100%;
   border-radius: 50%;
-  margin-top: 0.5rem;
-  margin-bottom: 1.6rem;
+  margin-top: 0.25rem;
+  margin-bottom: 1.4rem;
   display: flex;
   align-items: center;
   justify-content: center;

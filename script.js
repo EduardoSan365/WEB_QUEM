@@ -395,6 +395,68 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(drawFavicon, 120);
     drawFavicon();
   }
+
+  // ==========================================================================
+  // In-View Icon Dynamic Morphing (IntersectionObserver)
+  // Cambia el icono automáticamente cuando la tarjeta entra en el campo de visión
+  // ==========================================================================
+  const cardsWithIcons = document.querySelectorAll('.card-feature, .space-card');
+
+  if ('IntersectionObserver' in window && cardsWithIcons.length > 0) {
+    const observerOptions = {
+      root: null,
+      threshold: 0.45 // Se activa cuando el 45% de la tarjeta es visible
+    };
+
+    const iconObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const card = entry.target;
+        const iconWrapper = card.querySelector('.card-icon, .space-icon');
+        if (!iconWrapper) return;
+
+        const iconEl = iconWrapper.querySelector('i');
+        const altIconClass = iconWrapper.getAttribute('data-alt-icon');
+
+        // Guardamos la clase original si no está guardada
+        if (iconEl && !iconWrapper.getAttribute('data-default-icon')) {
+          iconWrapper.setAttribute('data-default-icon', iconEl.className);
+        }
+
+        const defaultIconClass = iconWrapper.getAttribute('data-default-icon');
+
+        if (entry.isIntersecting) {
+          card.classList.add('in-view');
+
+          if (iconEl && altIconClass) {
+            // Suave transición de escala y cambio de icono
+            iconEl.style.transform = 'scale(0.3) rotate(30deg)';
+            iconEl.style.opacity = '0';
+
+            setTimeout(() => {
+              iconEl.className = altIconClass;
+              iconEl.style.transform = 'scale(1) rotate(0deg)';
+              iconEl.style.opacity = '1';
+            }, 180);
+          }
+        } else {
+          card.classList.remove('in-view');
+
+          if (iconEl && defaultIconClass) {
+            iconEl.style.transform = 'scale(0.3) rotate(-30deg)';
+            iconEl.style.opacity = '0';
+
+            setTimeout(() => {
+              iconEl.className = defaultIconClass;
+              iconEl.style.transform = 'scale(1) rotate(0deg)';
+              iconEl.style.opacity = '1';
+            }, 180);
+          }
+        }
+      });
+    }, observerOptions);
+
+    cardsWithIcons.forEach((card) => iconObserver.observe(card));
+  }
 });
 
 

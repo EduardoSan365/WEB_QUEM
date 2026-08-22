@@ -1008,6 +1008,15 @@ a {
 }
 
 /* Enhanced Icon Wrapper System */
+.card-header,
+.space-header {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  width: 100%;
+  margin-bottom: 1.25rem;
+}
+
 .card-icon-wrapper,
 .step-icon-wrapper,
 .space-icon-wrapper {
@@ -1015,7 +1024,7 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1.5rem;
+  flex-shrink: 0;
 }
 
 .card-icon-glow,
@@ -1047,16 +1056,16 @@ a {
 .card-icon {
   position: relative;
   z-index: 1;
-  width: 59px;
-  height: 59px;
-  border-radius: 16px;
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
   background: linear-gradient(135deg, rgba(0, 249, 255, 0.18) 0%, rgba(0, 180, 216, 0.08) 100%);
   border: 1.5px solid rgba(0, 200, 220, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #007a8a;
-  font-size: 1.68rem;
+  font-size: 1.55rem;
   box-shadow: 0 8px 20px rgba(0, 249, 255, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.6);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1088,17 +1097,17 @@ a {
 
 .card-feature h3 {
   color: #111111;
-  font-size: 1.55rem;
-  margin-bottom: 0.85rem;
+  font-size: 1.35rem;
+  margin-bottom: 0;
   font-weight: 800;
-  line-height: 1.25;
+  line-height: 1.2;
   letter-spacing: -0.015em;
 }
 
 .card-feature p {
   color: #374151;
-  font-size: 1.08rem;
-  line-height: 1.62;
+  font-size: 1.02rem;
+  line-height: 1.58;
   margin-bottom: 0.5rem;
   font-weight: 500;
 }
@@ -1330,7 +1339,7 @@ a {
   background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: var(--radius-lg);
-  padding: 2.6rem 2.2rem;
+  padding: 2.4rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1347,22 +1356,18 @@ a {
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), 0 0 28px rgba(0, 249, 255, 0.28);
 }
 
-.space-icon-wrapper {
-  margin-bottom: 1.6rem;
-}
-
 .space-icon {
   position: relative;
   z-index: 1;
-  width: 61px;
-  height: 61px;
-  border-radius: 16px;
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
   background: linear-gradient(135deg, rgba(0, 249, 255, 0.16) 0%, rgba(0, 180, 216, 0.06) 100%);
   border: 1.5px solid rgba(0, 200, 220, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.84rem;
+  font-size: 1.55rem;
   color: #007a8a;
   box-shadow: 0 8px 22px rgba(0, 249, 255, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.7);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1379,18 +1384,18 @@ a {
 
 .space-card h3 {
   color: #111111;
-  font-size: 1.55rem;
-  margin-bottom: 0.85rem;
+  font-size: 1.35rem;
+  margin-bottom: 0;
   font-weight: 800;
-  line-height: 1.25;
+  line-height: 1.2;
   letter-spacing: -0.015em;
 }
 
 .space-card p {
   color: #374151;
-  font-size: 1.08rem;
-  line-height: 1.62;
-  margin-bottom: 1.6rem;
+  font-size: 1.02rem;
+  line-height: 1.58;
+  margin-bottom: 1.4rem;
   font-weight: 500;
 }
 

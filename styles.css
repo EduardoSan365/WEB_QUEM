@@ -1189,7 +1189,7 @@ a {
   z-index: 1;
   border: none;
   box-shadow: none;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .step-img-glow {
@@ -1202,20 +1202,29 @@ a {
   border-radius: 50%;
   background: radial-gradient(circle, rgba(0, 249, 255, 0.45) 0%, rgba(0, 200, 220, 0.15) 60%, transparent 100%);
   filter: blur(16px);
-  opacity: 0.6;
-  transition: all 0.35s ease;
+  opacity: 0.5;
+  transition: all 0.5s ease;
   pointer-events: none;
   z-index: 0;
 }
 
+/* Efecto cuando la tarjeta entra al campo de visión (scroll) o en hover */
+.step-card.in-view .step-img-illustration,
 .step-card:hover .step-img-illustration {
-  transform: scale(1.06);
+  transform: scale(1.08);
 }
 
+.step-card.in-view .step-img-glow,
 .step-card:hover .step-img-glow {
-  opacity: 0.95;
-  transform: translate(-50%, -50%) scale(1.18);
-  filter: blur(22px);
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.22);
+  filter: blur(24px);
+}
+
+.step-card.in-view,
+.step-card:hover {
+  border-color: var(--cyan-primary);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), 0 0 28px rgba(0, 249, 255, 0.28);
 }
 
 .step-card h4 {

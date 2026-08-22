@@ -1047,16 +1047,16 @@ a {
 .card-icon {
   position: relative;
   z-index: 1;
-  width: 74px;
-  height: 74px;
-  border-radius: 20px;
+  width: 59px;
+  height: 59px;
+  border-radius: 16px;
   background: linear-gradient(135deg, rgba(0, 249, 255, 0.18) 0%, rgba(0, 180, 216, 0.08) 100%);
   border: 1.5px solid rgba(0, 200, 220, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #007a8a;
-  font-size: 2.1rem;
+  font-size: 1.68rem;
   box-shadow: 0 8px 20px rgba(0, 249, 255, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.6);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -1354,15 +1354,15 @@ a {
 .space-icon {
   position: relative;
   z-index: 1;
-  width: 76px;
-  height: 76px;
-  border-radius: 20px;
+  width: 61px;
+  height: 61px;
+  border-radius: 16px;
   background: linear-gradient(135deg, rgba(0, 249, 255, 0.16) 0%, rgba(0, 180, 216, 0.06) 100%);
   border: 1.5px solid rgba(0, 200, 220, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.3rem;
+  font-size: 1.84rem;
   color: #007a8a;
   box-shadow: 0 8px 22px rgba(0, 249, 255, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.7);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);

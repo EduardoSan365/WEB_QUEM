@@ -987,8 +987,8 @@ a {
 
 /* Card Feature */
 .card-feature {
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #F8FAFC;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-lg);
   padding: 2.5rem 2rem 2.2rem 2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
@@ -1143,8 +1143,8 @@ a {
 
 /* Step Card (Cómo Funciona) */
 .step-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #F8FAFC;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-lg);
   padding: 1.6rem 1.2rem 1.8rem 1.2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
@@ -1336,8 +1336,8 @@ a {
 
 /* Space Card (Smart Market) */
 .space-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #F8FAFC;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-lg);
   padding: 2.4rem 2rem;
   display: flex;

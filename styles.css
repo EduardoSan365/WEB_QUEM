@@ -1607,10 +1607,8 @@ a {
 .footer-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  justify-content: center;
+  margin-bottom: 1.8rem;
 }
 
 .footer-brand-logo {

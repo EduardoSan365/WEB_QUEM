@@ -496,11 +496,12 @@ a {
 }
 
 .hero-main-subtitle {
-  font-size: 1.05rem;
-  color: var(--text-muted);
-  line-height: 1.6;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #CBD5E1;
+  line-height: 1.65;
   margin-bottom: 1.8rem;
-  max-width: 540px;
+  max-width: 580px;
 }
 
 .hero-badges-row {
@@ -951,9 +952,10 @@ a {
 }
 
 .placeholder-header p {
-  color: var(--text-muted);
-  font-size: 1.05rem;
-  line-height: 1.6;
+  color: #CBD5E1;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.65;
 }
 
 /* Grid Layouts */

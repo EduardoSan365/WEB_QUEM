@@ -1137,7 +1137,7 @@ a {
   background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: var(--radius-lg);
-  padding: 2rem 1.4rem 2rem 1.4rem;
+  padding: 1.6rem 1.2rem 1.8rem 1.2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   text-align: center;
   position: relative;
@@ -1158,15 +1158,26 @@ a {
 /* Step Visual Storytelling Container */
 .step-visual-container {
   position: relative;
-  width: 210px;
-  height: 210px;
-  max-width: 100%;
+  width: 255px;
+  height: 255px;
+  max-width: 90vw;
   border-radius: 50%;
-  margin-top: 0.25rem;
-  margin-bottom: 1.4rem;
+  margin-top: 0.15rem;
+  margin-bottom: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width: 480px) {
+  .step-card {
+    padding: 1.4rem 1rem 1.6rem 1rem;
+  }
+  .step-visual-container {
+    width: 260px;
+    height: 260px;
+    margin-bottom: 1rem;
+  }
 }
 
 .step-img-illustration {

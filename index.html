@@ -403,7 +403,8 @@
             <div class="space-header">
               <div class="space-icon-wrapper">
                 <div class="space-icon-glow"></div>
-                <div class="space-icon" data-alt-icon="fa-solid fa-house-chimney-window"><i class="fa-solid fa-tree-city"></i></div>
+                <div class="space-icon" data-alt-icon="fa-solid fa-house-chimney-window"><i
+                    class="fa-solid fa-tree-city"></i></div>
               </div>
               <h3>Barrios Cerrados</h3>
             </div>
@@ -415,7 +416,8 @@
             <div class="space-header">
               <div class="space-icon-wrapper">
                 <div class="space-icon-glow"></div>
-                <div class="space-icon" data-alt-icon="fa-solid fa-briefcase"><i class="fa-solid fa-building-user"></i></div>
+                <div class="space-icon" data-alt-icon="fa-solid fa-briefcase"><i class="fa-solid fa-building-user"></i>
+                </div>
               </div>
               <h3>Empresas &amp; Oficinas</h3>
             </div>
@@ -527,7 +529,55 @@
     </a>
   </div>
 
-  <script src="script.js?v=2.1"></script>
+  <!-- Vapi Official Voice Assistant Widget (Plug & Play) -->
+  <script
+    src="https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js"
+    defer
+  ></script>
+  <script>
+    var vapiInstance = null;
+    const assistant = "cdae3aa8-66a8-40ad-a23c-9c7df43d5ab6";
+    const apiKey = "d55e4233-70c4-458f-ad56-b6b522b68a61";
+    const buttonConfig = {
+      position: "bottom-left",
+      offset: "30px",
+      width: "60px",
+      height: "60px",
+      idle: {
+        color: `rgb(0, 249, 255)`,
+        type: "pill",
+        title: "¿Dudas? Hablá con nuestra IA",
+        subtitle: "qüem Smart Shop",
+        icon: `https://unpkg.com/lucide-static@0.321.0/icons/phone.svg`
+      },
+      loading: {
+        color: `rgb(0, 180, 216)`,
+        type: "pill",
+        title: "Conectando...",
+        subtitle: "Iniciando qüem IA",
+        icon: `https://unpkg.com/lucide-static@0.321.0/icons/loader-2.svg`
+      },
+      active: {
+        color: `rgb(239, 68, 68)`,
+        type: "pill",
+        title: "En llamada con qüem IA",
+        subtitle: "Tocá para finalizar",
+        icon: `https://unpkg.com/lucide-static@0.321.0/icons/phone-off.svg`
+      }
+    };
+
+    window.addEventListener('load', () => {
+      if (window.vapiSDK) {
+        vapiInstance = window.vapiSDK.run({
+          apiKey: apiKey,
+          assistant: assistant,
+          config: buttonConfig
+        });
+      }
+    });
+  </script>
+
+  <script src="script.js?v=3.5"></script>
 </body>
 
 </html>

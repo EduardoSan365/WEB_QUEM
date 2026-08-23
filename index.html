@@ -529,55 +529,60 @@
     </a>
   </div>
 
-  <!-- Vapi Official Voice Assistant Widget (Plug & Play) -->
+  <!-- Vapi Official Voice Assistant Script (Configurado para activarse mediante el logo 'ü') -->
   <script
     src="https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js"
     defer
   ></script>
   <script>
-    var vapiInstance = null;
-    const assistant = "cdae3aa8-66a8-40ad-a23c-9c7df43d5ab6";
-    const apiKey = "d55e4233-70c4-458f-ad56-b6b522b68a61";
-    const buttonConfig = {
-      position: "bottom-left",
-      offset: "30px",
-      width: "60px",
-      height: "60px",
-      idle: {
-        color: `rgb(0, 249, 255)`,
-        type: "pill",
-        title: "¿Dudas? Hablá con nuestra IA",
-        subtitle: "qüem Smart Shop",
-        icon: `https://unpkg.com/lucide-static@0.321.0/icons/phone.svg`
-      },
-      loading: {
-        color: `rgb(0, 180, 216)`,
-        type: "pill",
-        title: "Conectando...",
-        subtitle: "Iniciando qüem IA",
-        icon: `https://unpkg.com/lucide-static@0.321.0/icons/loader-2.svg`
-      },
-      active: {
-        color: `rgb(239, 68, 68)`,
-        type: "pill",
-        title: "En llamada con qüem IA",
-        subtitle: "Tocá para finalizar",
-        icon: `https://unpkg.com/lucide-static@0.321.0/icons/phone-off.svg`
-      }
-    };
-
     window.addEventListener('load', () => {
+      const assistant = "cdae3aa8-66a8-40ad-a23c-9c7df43d5ab6";
+      const apiKey = "d55e4233-70c4-458f-ad56-b6b522b68a61";
+
       if (window.vapiSDK) {
-        vapiInstance = window.vapiSDK.run({
+        const vapi = window.vapiSDK.run({
           apiKey: apiKey,
-          assistant: assistant,
-          config: buttonConfig
+          assistant: assistant
         });
+
+        const heroBadge = document.querySelector('.hero-live-badge');
+        let isCallActive = false;
+
+        if (heroBadge && vapi) {
+          heroBadge.title = "Toca para hablar con la IA de qüem";
+
+          vapi.on('call-start', () => {
+            isCallActive = true;
+            heroBadge.classList.add('vapi-active');
+            heroBadge.title = "Llamada activa • Toca para cortar";
+          });
+
+          vapi.on('call-end', () => {
+            isCallActive = false;
+            heroBadge.classList.remove('vapi-active');
+            heroBadge.title = "Toca para hablar con la IA de qüem";
+          });
+
+          vapi.on('error', (e) => {
+            console.warn('Vapi error:', e);
+            isCallActive = false;
+            heroBadge.classList.remove('vapi-active');
+          });
+
+          heroBadge.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (isCallActive) {
+              vapi.stop();
+            } else {
+              vapi.start(assistant);
+            }
+          });
+        }
       }
     });
   </script>
 
-  <script src="script.js?v=3.5"></script>
+  <script src="script.js?v=4.0"></script>
 </body>
 
 </html>

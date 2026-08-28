@@ -351,6 +351,31 @@ a {
   font-size: 2.2rem;
   font-weight: 800;
   margin-bottom: 0.75rem;
+  min-height: 1.25em;
+  position: relative;
+}
+
+.section-typewriter {
+  display: inline-block;
+  position: relative;
+}
+
+.section-typewriter .typewriter-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  background-color: var(--cyan-primary);
+  margin-left: 5px;
+  vertical-align: -0.04em;
+  border-radius: 1px;
+  box-shadow: 0 0 10px var(--cyan-primary), 0 0 18px rgba(0, 242, 254, 0.7);
+  animation: typewriterCursorBlink 0.8s infinite;
+  transition: opacity 0.4s ease;
+}
+
+.section-typewriter .typewriter-cursor.fade-out {
+  opacity: 0;
+  animation: none;
 }
 
 .placeholder-header p {

@@ -622,14 +622,80 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(typeLine1Prefix, 250);
   };
 
+  // =========================================================================
+  // Section Titles Scroll-Triggered Typewriter Animation
+  // =========================================================================
+  const initSectionTypewriters = () => {
+    const sectionHeadings = document.querySelectorAll('.section-typewriter');
+    if (!sectionHeadings.length) return;
+
+    // Preparar elementos ocultando el texto inicial y creando la estructura interna
+    sectionHeadings.forEach((heading) => {
+      const fullText = heading.getAttribute('data-typewriter') || heading.textContent.trim();
+      heading.setAttribute('data-typewriter', fullText);
+      heading.innerHTML = `<span class="type-content"></span><span class="typewriter-cursor" aria-hidden="true"></span>`;
+    });
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -60px 0px',
+      threshold: 0.15
+    };
+
+    const typeSectionHeading = (heading) => {
+      const fullText = heading.getAttribute('data-typewriter');
+      const contentEl = heading.querySelector('.type-content');
+      const cursorEl = heading.querySelector('.typewriter-cursor');
+
+      if (!contentEl || !fullText) return;
+
+      let charIndex = 0;
+      const speed = 32; // Tipeo ágil y fluido
+
+      const typeNextChar = () => {
+        if (charIndex < fullText.length) {
+          contentEl.textContent += fullText.charAt(charIndex);
+          charIndex++;
+          setTimeout(typeNextChar, speed);
+        } else {
+          // Finalizado: mantener el cursor 1.8s y desvanecerlo suavemente
+          if (cursorEl) {
+            setTimeout(() => {
+              cursorEl.classList.add('fade-out');
+              setTimeout(() => {
+                if (cursorEl.parentNode) cursorEl.remove();
+              }, 500);
+            }, 1800);
+          }
+        }
+      };
+
+      // Pequeño retardo al entrar a la vista antes de tipear
+      setTimeout(typeNextChar, 120);
+    };
+
+    const sectionObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const heading = entry.target;
+          typeSectionHeading(heading);
+          observer.unobserve(heading); // Ejecutar una sola vez al entrar en vista
+        }
+      });
+    }, observerOptions);
+
+    sectionHeadings.forEach((heading) => sectionObserver.observe(heading));
+  };
+
   // Inicializar los 4 carruseles móviles (4 pasos + 4 acerca + 4 beneficios + 3 espacios)
   initMobileCarousel('stepsCarousel', 'stepsCarouselDots');
   initMobileCarousel('aboutCarousel', 'aboutCarouselDots');
   initMobileCarousel('benefitsCarousel', 'benefitsCarouselDots');
   initMobileCarousel('spacesCarousel', 'spacesCarouselDots');
 
-  // Iniciar Typewriter en el Hero
+  // Iniciar Typewriters
   initHeroTypewriter();
+  initSectionTypewriters();
 });
 
 

@@ -1006,13 +1006,15 @@ a {
   .grid-3-col, .grid-4-col, .grid-5-col { grid-template-columns: 1fr; }
 }
 
-/* Card Feature */
+/* Card Feature — Dark Glassmorphism High-Tech */
 .card-feature {
-  background: #F8FAFC;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(14, 12, 20, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(0, 249, 255, 0.18);
   border-radius: var(--radius-lg);
-  padding: 2.5rem 2rem 2.2rem 2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  padding: 2.4rem 2rem 2.2rem 2rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.08);
   transition: all var(--transition-normal);
   display: flex;
   flex-direction: column;
@@ -1021,11 +1023,27 @@ a {
   overflow: hidden;
 }
 
+.card-feature::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 249, 255, 0.6), transparent);
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
 .card-feature:hover {
-  background: #FFFFFF;
-  border-color: var(--cyan-primary);
+  background: rgba(20, 16, 30, 0.88);
+  border-color: rgba(0, 249, 255, 0.55);
   transform: translateY(-6px);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), 0 0 30px rgba(0, 249, 255, 0.3);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 249, 255, 0.3);
+}
+
+.card-feature:hover::before {
+  opacity: 1;
 }
 
 /* Enhanced Icon Wrapper System */
@@ -1058,9 +1076,9 @@ a {
   width: 100%;
   height: 100%;
   border-radius: inherit;
-  background: radial-gradient(circle, rgba(0, 249, 255, 0.45) 0%, rgba(0, 200, 220, 0.1) 70%, transparent 100%);
+  background: radial-gradient(circle, rgba(0, 249, 255, 0.6) 0%, rgba(0, 200, 220, 0.15) 70%, transparent 100%);
   filter: blur(14px);
-  opacity: 0.6;
+  opacity: 0.7;
   transition: all 0.35s ease;
   pointer-events: none;
   z-index: 0;
@@ -1077,17 +1095,17 @@ a {
 .card-icon {
   position: relative;
   z-index: 1;
-  width: 54px;
-  height: 54px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, rgba(0, 249, 255, 0.18) 0%, rgba(0, 180, 216, 0.08) 100%);
-  border: 1.5px solid rgba(0, 200, 220, 0.45);
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(0, 249, 255, 0.15) 0%, rgba(0, 180, 216, 0.05) 100%);
+  border: 1.5px solid rgba(0, 249, 255, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #007a8a;
-  font-size: 1.55rem;
-  box-shadow: 0 8px 20px rgba(0, 249, 255, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  color: var(--cyan-primary);
+  font-size: 1.6rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -1099,11 +1117,11 @@ a {
 /* Estado activo cuando la tarjeta entra en visión (IntersectionObserver) o en Hover */
 .card-feature.in-view .card-icon,
 .card-feature:hover .card-icon {
-  transform: scale(1.1) rotate(4deg);
-  background: linear-gradient(135deg, #00F9FF 0%, #0099b0 100%);
-  color: #03111b;
+  transform: scale(1.08) rotate(3deg);
+  background: linear-gradient(135deg, rgba(0, 249, 255, 0.95) 0%, rgba(0, 180, 216, 0.8) 100%);
+  color: #030a10;
   border-color: #00F9FF;
-  box-shadow: 0 12px 28px rgba(0, 249, 255, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 25px rgba(0, 249, 255, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.9);
 }
 
 .card-feature.in-view .card-icon-glow,
@@ -1117,7 +1135,7 @@ a {
 }
 
 .card-feature h3 {
-  color: #111111;
+  color: #FFFFFF;
   font-size: 1.35rem;
   margin-bottom: 0;
   font-weight: 800;
@@ -1126,11 +1144,11 @@ a {
 }
 
 .card-feature p {
-  color: #374151;
+  color: #94A3B8;
   font-size: 1.02rem;
-  line-height: 1.58;
+  line-height: 1.6;
   margin-bottom: 0.5rem;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .card-action-link {
@@ -1164,7 +1182,7 @@ a {
 
 /* Step Card (Cómo Funciona) */
 .step-card {
-  background: #F8FAFC;
+  background: #E2E8F0;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-lg);
   padding: 1.6rem 1.2rem 1.8rem 1.2rem;
@@ -1179,7 +1197,7 @@ a {
 }
 
 .step-card:hover {
-  background: #FFFFFF;
+  background: #EDF2F7;
   border-color: var(--cyan-primary);
   transform: translateY(-8px);
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35), 0 0 30px rgba(0, 249, 255, 0.3);
@@ -1357,7 +1375,7 @@ a {
 
 /* Space Card (Smart Market) */
 .space-card {
-  background: #F8FAFC;
+  background: #E2E8F0;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-lg);
   padding: 2.4rem 2rem;
@@ -1371,7 +1389,7 @@ a {
 }
 
 .space-card:hover {
-  background: #FFFFFF;
+  background: #EDF2F7;
   border-color: var(--cyan-primary);
   transform: translateY(-6px);
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), 0 0 28px rgba(0, 249, 255, 0.28);
@@ -1706,4 +1724,90 @@ a {
    ========================================================================== */
 .vapi-btn {
   display: none !important;
+}
+
+/* ==========================================================================
+   MOBILE CAROUSEL ENHANCEMENT (Swipe Táctil en Móviles)
+   ========================================================================== */
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 680px) {
+  .mobile-only {
+    display: flex;
+  }
+
+  /* Contenedor Carousel Horizontal */
+  .mobile-carousel {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    gap: 1.1rem !important;
+    padding: 0.8rem 1.25rem 1.6rem 1.25rem !important;
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .mobile-carousel::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
+
+  /* Tarjetas del Carrusel en Móvil — Dark Glassmorphism */
+  .mobile-carousel .card-feature {
+    flex: 0 0 85% !important;
+    min-width: 85% !important;
+    max-width: 85% !important;
+    scroll-snap-align: center !important;
+    padding: 2.2rem 1.6rem 2rem 1.6rem !important;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 249, 255, 0.18);
+    border: 1px solid rgba(0, 249, 255, 0.3);
+    background: rgba(12, 10, 18, 0.85) !important;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .mobile-carousel .card-feature h3 {
+    color: #FFFFFF !important;
+    font-size: 1.4rem;
+    font-weight: 800;
+  }
+
+  .mobile-carousel .card-feature p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #CBD5E1 !important;
+  }
+
+  /* Puntos Indicadores / Dots */
+  .carousel-dots-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.8rem;
+  }
+
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 0;
+  }
+
+  .carousel-dot.active {
+    width: 26px;
+    background: var(--cyan-primary);
+    border-color: var(--cyan-primary);
+    box-shadow: 0 0 12px rgba(0, 249, 255, 0.7);
+  }
 }

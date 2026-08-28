@@ -460,6 +460,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
     animatedCards.forEach((card) => cardObserver.observe(card));
   }
+
+  // =========================================================================
+  // Mobile Carousel Synchronization (Swipe & Dots)
+  // =========================================================================
+  const initMobileCarousel = (carouselId, dotsContainerId) => {
+    const carousel = document.getElementById(carouselId);
+    const dotsContainer = document.getElementById(dotsContainerId);
+
+    if (!carousel || !dotsContainer) return;
+
+    const cards = carousel.querySelectorAll('.card-feature');
+    const dots = dotsContainer.querySelectorAll('.carousel-dot');
+
+    if (!cards.length || !dots.length) return;
+
+    // Actualizar punto activo al scrolear horizontalmente
+    let scrollTimeout;
+    carousel.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        const scrollLeft = carousel.scrollLeft;
+        const cardWidth = cards[0].offsetWidth + 18; // ancho + gap
+        const activeIndex = Math.round(scrollLeft / cardWidth);
+
+        dots.forEach((dot, idx) => {
+          if (idx === Math.min(activeIndex, dots.length - 1)) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }, 50);
+    });
+
+    // Click en los puntos para ir a la tarjeta correspondiente
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const index = parseInt(dot.getAttribute('data-index'), 10);
+        if (cards[index]) {
+          const cardWidth = cards[0].offsetWidth + 18;
+          carousel.scrollTo({
+            left: index * cardWidth,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+  };
+
+  // Inicializar carrusel de la primera sección
+  initMobileCarousel('aboutCarousel', 'aboutCarouselDots');
 });
+
 
 

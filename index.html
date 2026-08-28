@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=2.1">
+  <link rel="stylesheet" href="styles.css?v=2.3">
 </head>
 
 <body>
@@ -249,7 +249,7 @@
             autónomos sin fricción.</p>
         </div>
 
-        <div class="grid-4-col">
+        <div class="grid-4-col mobile-carousel" id="aboutCarousel">
           <div class="card-feature">
             <div class="card-header">
               <div class="card-icon-wrapper">
@@ -305,6 +305,14 @@
             <p>Eleva la categoría y cotización de las unidades funcionales sumando un amenity tecnológico
               que mejora la experiencia de vida diaria.</p>
           </div>
+        </div>
+
+        <!-- Mobile Carousel Dots Navigation -->
+        <div class="carousel-dots-wrapper mobile-only" id="aboutCarouselDots">
+          <button class="carousel-dot active" data-index="0" aria-label="Tarjeta 1"></button>
+          <button class="carousel-dot" data-index="1" aria-label="Tarjeta 2"></button>
+          <button class="carousel-dot" data-index="2" aria-label="Tarjeta 3"></button>
+          <button class="carousel-dot" data-index="3" aria-label="Tarjeta 4"></button>
         </div>
       </div>
     </section>
@@ -547,6 +555,25 @@
 
         const heroBadge = document.querySelector('.hero-live-badge');
         let isCallActive = false;
+        let silenceTimer = null;
+        const SILENCE_TIMEOUT_MS = 10000; // 10 segundos de silencio para finalizar
+
+        const resetSilenceTimer = () => {
+          if (silenceTimer) clearTimeout(silenceTimer);
+          if (isCallActive) {
+            silenceTimer = setTimeout(() => {
+              console.log('Finalizando llamada por silencio de 10 segundos');
+              vapi.stop();
+            }, SILENCE_TIMEOUT_MS);
+          }
+        };
+
+        const clearSilenceTimer = () => {
+          if (silenceTimer) {
+            clearTimeout(silenceTimer);
+            silenceTimer = null;
+          }
+        };
 
         if (heroBadge && vapi) {
           heroBadge.title = "Toca para hablar con la IA de qüem";
@@ -555,18 +582,33 @@
             isCallActive = true;
             heroBadge.classList.add('vapi-active');
             heroBadge.title = "Llamada activa • Toca para cortar";
+            resetSilenceTimer();
           });
 
           vapi.on('call-end', () => {
             isCallActive = false;
             heroBadge.classList.remove('vapi-active');
             heroBadge.title = "Toca para hablar con la IA de qüem";
+            clearSilenceTimer();
+          });
+
+          vapi.on('speech-start', () => {
+            resetSilenceTimer();
+          });
+
+          vapi.on('speech-end', () => {
+            resetSilenceTimer();
+          });
+
+          vapi.on('message', () => {
+            resetSilenceTimer();
           });
 
           vapi.on('error', (e) => {
             console.warn('Vapi error:', e);
             isCallActive = false;
             heroBadge.classList.remove('vapi-active');
+            clearSilenceTimer();
           });
 
           heroBadge.addEventListener('click', (e) => {

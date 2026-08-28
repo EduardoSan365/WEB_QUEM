@@ -503,9 +503,34 @@ a {
   font-family: var(--font-heading);
   font-size: clamp(2.2rem, 3.8vw, 3.4rem);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.12;
   letter-spacing: -0.035em;
   margin-bottom: 1.1rem;
+  min-height: 2.3em;
+}
+
+.typewriter-dynamic {
+  color: var(--cyan-primary);
+  text-shadow: 0 0 20px rgba(0, 242, 254, 0.45);
+  font-weight: 800;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.88em;
+  background-color: var(--cyan-primary);
+  margin-left: 5px;
+  vertical-align: -0.04em;
+  border-radius: 1px;
+  box-shadow: 0 0 10px var(--cyan-primary), 0 0 20px rgba(0, 242, 254, 0.7);
+  animation: typewriterCursorBlink 0.8s infinite;
+}
+
+@keyframes typewriterCursorBlink {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .highlight-cyan {

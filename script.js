@@ -509,11 +509,128 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  // =========================================================================
+  // Hero Title Dynamic Typewriter Animation
+  // =========================================================================
+  const initHeroTypewriter = () => {
+    const line1El = document.getElementById('heroTypewriterLine1');
+    const line2StaticEl = document.getElementById('heroTypewriterLine2');
+    const dynamicEl = document.getElementById('heroTypewriterDynamic');
+
+    if (!line1El || !line2StaticEl || !dynamicEl) return;
+
+    const words = [
+      'comunidad',
+      'edificio',
+      'barrio cerrado',
+      'empresa',
+      'condominio'
+    ];
+
+    // Limpiar contenido inicial para ejecutar el efecto de tipeo fluido
+    line1El.innerHTML = '';
+    line2StaticEl.textContent = '';
+    dynamicEl.textContent = '';
+
+    const text1Prefix = 'Innovación ';
+    const text1Highlight = '24/7';
+    const text2Static = 'para tu ';
+
+    const typeSpeed = 45;
+    const deleteSpeed = 30;
+    const holdTime = 2400;
+
+    let wordIndex = 0;
+
+    // 1. Tipear prefijo de la línea 1 ("Innovación ")
+    let charIdx = 0;
+    const typeLine1Prefix = () => {
+      if (charIdx < text1Prefix.length) {
+        line1El.textContent += text1Prefix.charAt(charIdx);
+        charIdx++;
+        setTimeout(typeLine1Prefix, typeSpeed);
+      } else {
+        // 2. Tipear span resaltado ("24/7") en cyan
+        const highlightSpan = document.createElement('span');
+        highlightSpan.className = 'highlight-cyan';
+        line1El.appendChild(highlightSpan);
+
+        let hIdx = 0;
+        const typeLine1Highlight = () => {
+          if (hIdx < text1Highlight.length) {
+            highlightSpan.textContent += text1Highlight.charAt(hIdx);
+            hIdx++;
+            setTimeout(typeLine1Highlight, typeSpeed + 15);
+          } else {
+            // 3. Tipear inicio de línea 2 ("para tu ")
+            let sIdx = 0;
+            const typeLine2Static = () => {
+              if (sIdx < text2Static.length) {
+                line2StaticEl.textContent += text2Static.charAt(sIdx);
+                sIdx++;
+                setTimeout(typeLine2Static, typeSpeed);
+              } else {
+                // 4. Iniciar rotación de palabras clave con typewriter
+                typeDynamicWord();
+              }
+            };
+            setTimeout(typeLine2Static, 100);
+          }
+        };
+        setTimeout(typeLine1Highlight, 60);
+      }
+    };
+
+    // Tipear la palabra dinámica
+    const typeDynamicWord = () => {
+      const currentWord = words[wordIndex];
+      let dIdx = 0;
+
+      const typeChar = () => {
+        if (dIdx < currentWord.length) {
+          dynamicEl.textContent += currentWord.charAt(dIdx);
+          dIdx++;
+          setTimeout(typeChar, typeSpeed);
+        } else {
+          // Pausa con la palabra completa antes de borrar
+          setTimeout(deleteDynamicWord, holdTime);
+        }
+      };
+
+      typeChar();
+    };
+
+    // Borrar la palabra dinámica y pasar a la siguiente
+    const deleteDynamicWord = () => {
+      let currentText = dynamicEl.textContent;
+
+      const delChar = () => {
+        if (currentText.length > 0) {
+          currentText = currentText.slice(0, -1);
+          dynamicEl.textContent = currentText;
+          setTimeout(delChar, deleteSpeed);
+        } else {
+          wordIndex = (wordIndex + 1) % words.length;
+          setTimeout(typeDynamicWord, 250);
+        }
+      };
+
+      delChar();
+    };
+
+    // Comenzar tras una fracción de segundo para una entrada limpia
+    setTimeout(typeLine1Prefix, 250);
+  };
+
   // Inicializar los 3 carruseles de las 3 secciones (4 + 4 + 3 tarjetas)
   initMobileCarousel('aboutCarousel', 'aboutCarouselDots');
   initMobileCarousel('benefitsCarousel', 'benefitsCarouselDots');
   initMobileCarousel('spacesCarousel', 'spacesCarouselDots');
+
+  // Iniciar Typewriter en el Hero
+  initHeroTypewriter();
 });
+
 
 
 

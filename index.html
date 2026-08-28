@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=2.3">
+  <link rel="stylesheet" href="styles.css?v=2.5">
 </head>
 
 <body>
@@ -327,7 +327,7 @@
           <p>La combinación perfecta entre infraestructura física resistente y monitoreo digital avanzado.</p>
         </div>
 
-        <div class="grid-4-col">
+        <div class="grid-4-col mobile-carousel" id="benefitsCarousel">
           <div class="card-feature">
             <div class="card-header">
               <div class="card-icon-wrapper">
@@ -380,6 +380,14 @@
             <p>Alertas automáticas predictivas de reposición de mercadería para evitar quiebres de inventario.</p>
           </div>
         </div>
+
+        <!-- Mobile Carousel Dots Navigation -->
+        <div class="carousel-dots-wrapper mobile-only" id="benefitsCarouselDots">
+          <button class="carousel-dot active" data-index="0" aria-label="Beneficio 1"></button>
+          <button class="carousel-dot" data-index="1" aria-label="Beneficio 2"></button>
+          <button class="carousel-dot" data-index="2" aria-label="Beneficio 3"></button>
+          <button class="carousel-dot" data-index="3" aria-label="Beneficio 4"></button>
+        </div>
       </div>
     </section>
 
@@ -393,7 +401,7 @@
           <p>Instalá un qüem donde la conveniencia y la inmediatez marcan la diferencia.</p>
         </div>
 
-        <div class="grid-3-col">
+        <div class="grid-3-col mobile-carousel" id="spacesCarousel">
           <div class="space-card">
             <div class="space-header">
               <div class="space-icon-wrapper">
@@ -432,6 +440,13 @@
             <p>Snacks, bebidas y alimentos frescos para tus colaboradores dentro del entorno corporativo.</p>
             <span class="space-tag"><i class="fa-solid fa-mug-hot"></i> Bienestar Laboral</span>
           </div>
+        </div>
+
+        <!-- Mobile Carousel Dots Navigation -->
+        <div class="carousel-dots-wrapper mobile-only" id="spacesCarouselDots">
+          <button class="carousel-dot active" data-index="0" aria-label="Espacio 1"></button>
+          <button class="carousel-dot" data-index="1" aria-label="Espacio 2"></button>
+          <button class="carousel-dot" data-index="2" aria-label="Espacio 3"></button>
         </div>
       </div>
     </section>
@@ -624,7 +639,7 @@
     });
   </script>
 
-  <script src="script.js?v=4.0"></script>
+  <script src="script.js?v=4.1"></script>
 </body>
 
 </html>

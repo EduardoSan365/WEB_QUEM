@@ -470,7 +470,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!carousel || !dotsContainer) return;
 
-    const cards = carousel.querySelectorAll('.card-feature, .space-card');
+    const cards = carousel.querySelectorAll('.card-feature, .space-card, .step-card');
     const dots = dotsContainer.querySelectorAll('.carousel-dot');
 
     if (!cards.length || !dots.length) return;
@@ -622,7 +622,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(typeLine1Prefix, 250);
   };
 
-  // Inicializar los 3 carruseles de las 3 secciones (4 + 4 + 3 tarjetas)
+  // Inicializar los 4 carruseles móviles (4 pasos + 4 acerca + 4 beneficios + 3 espacios)
+  initMobileCarousel('stepsCarousel', 'stepsCarouselDots');
   initMobileCarousel('aboutCarousel', 'aboutCarouselDots');
   initMobileCarousel('benefitsCarousel', 'benefitsCarouselDots');
   initMobileCarousel('spacesCarousel', 'spacesCarouselDots');

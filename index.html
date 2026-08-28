@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=2.6">
+  <link rel="stylesheet" href="styles.css?v=2.7">
 </head>
 
 <body>
@@ -198,10 +198,10 @@
           </div>
         </div>
 
-        <div class="grid-4-col">
+        <div class="grid-4-col mobile-carousel" id="stepsCarousel">
           <div class="step-card">
             <div class="step-visual-container">
-              <img src="assets/step-1.jpg" alt="Paso 1: Entrás con tu smartphone" class="step-img-illustration">
+              <img src="assets/step-1.png" alt="Paso 1: Entrás con tu smartphone" class="step-img-illustration">
               <div class="step-img-glow"></div>
             </div>
             <h4>Entrás</h4>
@@ -210,7 +210,7 @@
 
           <div class="step-card">
             <div class="step-visual-container">
-              <img src="assets/step-2.jpg" alt="Paso 2: Escaneás tus productos" class="step-img-illustration">
+              <img src="assets/step-2.png" alt="Paso 2: Escaneás tus productos" class="step-img-illustration">
               <div class="step-img-glow"></div>
             </div>
             <h4>Escaneás</h4>
@@ -219,7 +219,7 @@
 
           <div class="step-card">
             <div class="step-visual-container">
-              <img src="assets/step-3.jpg" alt="Paso 3: Pagás con un tap" class="step-img-illustration">
+              <img src="assets/step-3.png" alt="Paso 3: Pagás con un tap" class="step-img-illustration">
               <div class="step-img-glow"></div>
             </div>
             <h4>Pagás</h4>
@@ -228,12 +228,20 @@
 
           <div class="step-card">
             <div class="step-visual-container">
-              <img src="assets/step-4.jpg" alt="Paso 4: Salís y disfrutás tu compra" class="step-img-illustration">
+              <img src="assets/step-4.png" alt="Paso 4: Salís y disfrutás tu compra" class="step-img-illustration">
               <div class="step-img-glow"></div>
             </div>
             <h4>Salís</h4>
             <p>Retirá tu compra sin hacer filas, sin esperas y con confirmación digital automática en tu pantalla.</p>
           </div>
+        </div>
+
+        <!-- Mobile Carousel Dots Navigation -->
+        <div class="carousel-dots-wrapper mobile-only" id="stepsCarouselDots">
+          <button class="carousel-dot active" data-index="0" aria-label="Paso 1"></button>
+          <button class="carousel-dot" data-index="1" aria-label="Paso 2"></button>
+          <button class="carousel-dot" data-index="2" aria-label="Paso 3"></button>
+          <button class="carousel-dot" data-index="3" aria-label="Paso 4"></button>
         </div>
       </div>
     </section>
@@ -639,7 +647,7 @@
     });
   </script>
 
-  <script src="script.js?v=4.2"></script>
+  <script src="script.js?v=4.3"></script>
 </body>
 
 </html>

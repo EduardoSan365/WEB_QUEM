@@ -1207,11 +1207,13 @@ a {
 
 /* Step Card (Cómo Funciona) */
 .step-card {
-  background: #E2E8F0;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(18, 17, 24, 0.65);
+  border: 1px solid var(--border-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: var(--radius-lg);
-  padding: 1.6rem 1.2rem 1.8rem 1.2rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  padding: 1.8rem 1.4rem 2rem 1.4rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
   text-align: center;
   position: relative;
   transition: all var(--transition-normal);
@@ -1222,21 +1224,20 @@ a {
 }
 
 .step-card:hover {
-  background: #EDF2F7;
+  background: rgba(26, 24, 36, 0.85);
   border-color: var(--cyan-primary);
   transform: translateY(-8px);
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35), 0 0 30px rgba(0, 249, 255, 0.3);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55), 0 0 30px rgba(0, 249, 255, 0.25);
 }
 
 /* Step Visual Storytelling Container */
 .step-visual-container {
   position: relative;
-  width: 255px;
-  height: 255px;
-  max-width: 90vw;
-  border-radius: 50%;
-  margin-top: 0.15rem;
-  margin-bottom: 1.2rem;
+  width: 220px;
+  height: 220px;
+  max-width: 85vw;
+  margin-top: 0.2rem;
+  margin-bottom: 1.3rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1244,24 +1245,24 @@ a {
 
 @media (max-width: 480px) {
   .step-card {
-    padding: 1.4rem 1rem 1.6rem 1rem;
+    padding: 1.6rem 1.2rem 1.8rem 1.2rem;
   }
   .step-visual-container {
-    width: 260px;
-    height: 260px;
-    margin-bottom: 1rem;
+    width: 210px;
+    height: 210px;
+    margin-bottom: 1.1rem;
   }
 }
 
 .step-img-illustration {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
   position: relative;
   z-index: 1;
   border: none;
   box-shadow: none;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -1270,12 +1271,12 @@ a {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 95%;
-  height: 95%;
+  width: 90%;
+  height: 90%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 249, 255, 0.45) 0%, rgba(0, 200, 220, 0.15) 60%, transparent 100%);
-  filter: blur(16px);
-  opacity: 0.5;
+  background: radial-gradient(circle, rgba(0, 249, 255, 0.35) 0%, rgba(0, 200, 220, 0.1) 60%, transparent 100%);
+  filter: blur(20px);
+  opacity: 0.45;
   transition: all 0.5s ease;
   pointer-events: none;
   z-index: 0;
@@ -1284,36 +1285,37 @@ a {
 /* Efecto cuando la tarjeta entra al campo de visión (scroll) o en hover */
 .step-card.in-view .step-img-illustration,
 .step-card:hover .step-img-illustration {
-  transform: scale(1.08);
+  transform: scale(1.06) translateY(-4px);
+  filter: drop-shadow(0 16px 28px rgba(0, 249, 255, 0.3));
 }
 
 .step-card.in-view .step-img-glow,
 .step-card:hover .step-img-glow {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1.22);
+  opacity: 0.9;
+  transform: translate(-50%, -50%) scale(1.18);
   filter: blur(24px);
 }
 
 .step-card.in-view,
 .step-card:hover {
   border-color: var(--cyan-primary);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35), 0 0 28px rgba(0, 249, 255, 0.28);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55), 0 0 28px rgba(0, 249, 255, 0.25);
 }
 
 .step-card h4 {
-  color: #111111;
-  font-size: 1.55rem;
+  color: #FFFFFF;
+  font-size: 1.5rem;
   margin-bottom: 0.75rem;
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1.2;
   letter-spacing: -0.02em;
 }
 
 .step-card p {
-  color: #374151;
-  font-size: 1.02rem;
+  color: #CBD5E1;
+  font-size: 0.98rem;
   line-height: 1.58;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 /* App Download Badges / Buttons (Experiencia de Usuario) */
@@ -1801,7 +1803,8 @@ a {
 
   /* Tarjetas del Carrusel en Móvil — Dark Glassmorphism */
   .mobile-carousel .card-feature,
-  .mobile-carousel .space-card {
+  .mobile-carousel .space-card,
+  .mobile-carousel .step-card {
     flex: 0 0 85% !important;
     min-width: 85% !important;
     max-width: 85% !important;
@@ -1817,14 +1820,16 @@ a {
   }
 
   .mobile-carousel .card-feature h3,
-  .mobile-carousel .space-card h3 {
+  .mobile-carousel .space-card h3,
+  .mobile-carousel .step-card h4 {
     color: #FFFFFF !important;
     font-size: 1.4rem;
     font-weight: 800;
   }
 
   .mobile-carousel .card-feature p,
-  .mobile-carousel .space-card p {
+  .mobile-carousel .space-card p,
+  .mobile-carousel .step-card p {
     font-size: 1rem;
     line-height: 1.6;
     color: #CBD5E1 !important;

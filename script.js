@@ -534,7 +534,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const text1Prefix = 'Innovación ';
     const text1Highlight = '24/7';
-    const text2Static = 'para tu ';
+    const text2Static = 'para tu';
 
     const typeSpeed = 45;
     const deleteSpeed = 30;

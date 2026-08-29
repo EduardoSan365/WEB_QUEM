@@ -528,16 +528,17 @@ a {
   font-family: var(--font-heading);
   font-size: clamp(2.2rem, 3.8vw, 3.4rem);
   font-weight: 800;
-  line-height: 1.12;
+  line-height: 1.15;
   letter-spacing: -0.035em;
   margin-bottom: 1.1rem;
-  min-height: 2.3em;
+  min-height: 3.55em;
 }
 
 .typewriter-dynamic {
   color: var(--cyan-primary);
   text-shadow: 0 0 20px rgba(0, 242, 254, 0.45);
   font-weight: 800;
+  white-space: nowrap;
 }
 
 .typewriter-cursor {
@@ -1616,14 +1617,8 @@ a {
 
 .form-actions {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 1.2rem;
-}
-
-@media (max-width: 640px) {
-  .form-actions {
-    grid-template-columns: 1fr;
-  }
 }
 
 .full-width-btn {
@@ -1631,19 +1626,6 @@ a {
   padding: 1rem 1.5rem;
   font-size: 1rem;
   font-weight: 800;
-}
-
-.whatsapp-btn {
-  background: #25D366;
-  border-color: #25D366;
-  color: #FFFFFF;
-}
-
-.whatsapp-btn:hover {
-  background: #20BA5A;
-  border-color: #20BA5A;
-  color: #FFFFFF;
-  box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
 }
 
 /* --------------------------------------------------------------------------

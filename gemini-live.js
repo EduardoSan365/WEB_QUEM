@@ -1,6 +1,6 @@
 /**
  * qüem Smart Shop — Asistente de Voz en Tiempo Real con Gemini Live API
- * Integración nativa sin ventanas modales ni solicitud de claves a los usuarios
+ * Optimizado para máxima compatibilidad móvil (iOS Safari, Android Chrome) y Desktop
  */
 
 (() => {
@@ -70,8 +70,8 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
   // Elemento DOM
   let heroBadge = null;
 
-  // --- OBTENCIÓN TRANSPARENTE DE LA API KEY ---
-  async function getApiKey() {
+  // --- PRE-CARGA Y OBTENCIÓN DE API KEY ---
+  async function preloadApiKey() {
     if (cachedApiKey) return cachedApiKey;
 
     const storedKey = localStorage.getItem(STORAGE_KEY) || window.GEMINI_API_KEY;
@@ -80,7 +80,6 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
       return cachedApiKey;
     }
 
-    // Consultar endpoint serverless de Vercel (variable de entorno GEMINI_API_KEY)
     try {
       const res = await fetch('/api/get-key');
       if (res.ok) {
@@ -91,10 +90,13 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
         }
       }
     } catch (e) {
-      console.warn('[qüem Live] No se pudo obtener la clave desde /api/get-key:', e);
+      console.warn('[qüem Live] Error precargando API Key:', e);
     }
-
     return '';
+  }
+
+  function getApiKey() {
+    return cachedApiKey || localStorage.getItem(STORAGE_KEY) || window.GEMINI_API_KEY || '';
   }
 
   function setApiKey(key) {
@@ -102,7 +104,37 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
     localStorage.setItem(STORAGE_KEY, cachedApiKey);
   }
 
-  // --- HELPERS DE AUDIO ---
+  // --- DESBLOQUEO DE AUDIO PARA MÓVILES (iOS / Android) ---
+  function unlockAudioContexts() {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+
+    if (!outputAudioContext || outputAudioContext.state === 'closed') {
+      // Dejar que el navegador elija la frecuencia nativa de hardware para evitar NotSupportedError en iOS
+      outputAudioContext = new AudioCtx();
+      outputGainNode = outputAudioContext.createGain();
+      outputGainNode.gain.value = 1.0;
+      outputGainNode.connect(outputAudioContext.destination);
+    }
+
+    if (outputAudioContext.state === 'suspended') {
+      outputAudioContext.resume();
+    }
+
+    // Reproducir micro-buffer de silencio para garantizar desbloqueo en WebKit
+    try {
+      const buffer = outputAudioContext.createBuffer(1, 1, 22050);
+      const source = outputAudioContext.createBufferSource();
+      source.buffer = buffer;
+      source.connect(outputAudioContext.destination);
+      source.start(0);
+    } catch (e) {}
+
+    nextAudioStartTime = 0;
+    activeSources = [];
+  }
+
+  // --- HELPERS DE AUDIO PCM ---
   function floatTo16BitPCM(float32Array, gain = DEFAULT_CONFIG.micGain) {
     const buffer = new ArrayBuffer(float32Array.length * 2);
     const view = new DataView(buffer);
@@ -166,7 +198,7 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
     if (silenceTimer) clearTimeout(silenceTimer);
     if (isConnected) {
       silenceTimer = setTimeout(() => {
-        console.log('[qüem Live] Desconexión por 10 segundos de silencio.');
+        console.log('[qüem Live] Desconexión por 10 segundos de inactividad.');
         disconnect();
       }, DEFAULT_CONFIG.silenceTimeoutMs);
     }
@@ -199,6 +231,11 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
   function playAudioChunk(float32Data) {
     if (!outputAudioContext) return;
 
+    if (outputAudioContext.state === 'suspended') {
+      outputAudioContext.resume();
+    }
+
+    // Web Audio resamplea nativamente a la frecuencia del hardware móvil (44.1k/48k)
     const buffer = outputAudioContext.createBuffer(1, float32Data.length, 24000);
     buffer.getChannelData(0).set(float32Data);
 
@@ -259,18 +296,28 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
     }
   }
 
-  // --- ENTRADA DE AUDIO ---
+  // --- CAPTURA DE AUDIO DEL MICRÓFONO CON COMPATIBILIDAD MÓVIL ---
   async function startAudioInput() {
-    mediaStream = await navigator.mediaDevices.getUserMedia({
-      audio: {
-        channelCount: 1,
-        echoCancellation: true,
-        noiseSuppression: false,
-        autoGainControl: false
-      }
-    });
+    try {
+      mediaStream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          channelCount: 1,
+          echoCancellation: true,
+          noiseSuppression: false,
+          autoGainControl: false
+        }
+      });
+    } catch (err) {
+      // Fallback para navegadores móviles con restricciones de constraints
+      mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    }
 
-    inputAudioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    inputAudioContext = new AudioCtx();
+    if (inputAudioContext.state === 'suspended') {
+      await inputAudioContext.resume();
+    }
+
     inputSource = inputAudioContext.createMediaStreamSource(mediaStream);
 
     const bufferSize = 2048;
@@ -318,20 +365,12 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
     audioProcessor.connect(inputAudioContext.destination);
   }
 
-  function setupAudioOutput() {
-    outputAudioContext = new (window.AudioContext || window.webkitAudioContext)({
-      sampleRate: 24000
-    });
-    outputGainNode = outputAudioContext.createGain();
-    outputGainNode.gain.value = 1.0;
-    outputGainNode.connect(outputAudioContext.destination);
-    nextAudioStartTime = 0;
-    activeSources = [];
-  }
-
   // --- CONEXIÓN PRINCIPAL GEMINI LIVE ---
   async function connect(targetModel = null) {
     if (isConnecting || isConnected) return;
+
+    // Desbloquear AudioContext en el hilo síncrono del evento del usuario
+    unlockAudioContexts();
 
     isConnecting = true;
     currentAttemptModel = targetModel || DEFAULT_CONFIG.primaryModel;
@@ -339,18 +378,18 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
     if (heroBadge) heroBadge.classList.add('gemini-active');
 
     try {
-      const apiKey = await getApiKey();
+      let apiKey = getApiKey();
       if (!apiKey) {
-        console.error('[qüem Live] GEMINI_API_KEY no encontrada. Configúrala en Vercel o en el proyecto.');
+        apiKey = await preloadApiKey();
+      }
+
+      if (!apiKey) {
+        console.error('[qüem Live] GEMINI_API_KEY no configurada.');
         disconnect();
         return;
       }
 
-      setupAudioOutput();
-      if (outputAudioContext.state === 'suspended') await outputAudioContext.resume();
-
       await startAudioInput();
-      if (inputAudioContext.state === 'suspended') await inputAudioContext.resume();
 
       const version = DEFAULT_CONFIG.apiVersion;
       const voice = DEFAULT_CONFIG.voice;
@@ -517,22 +556,26 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
 
   // --- INICIALIZACIÓN ---
   window.addEventListener('DOMContentLoaded', () => {
-    // Pre-cargar la clave en segundo plano
-    getApiKey();
+    preloadApiKey();
 
     heroBadge = document.querySelector('.hero-live-badge');
 
     if (heroBadge) {
       heroBadge.title = 'Toca la ü para hablar con el Asistente IA de qüem';
 
-      heroBadge.addEventListener('click', (e) => {
+      const handleUserTap = (e) => {
         e.preventDefault();
+        // Desbloquear audio context en el instante del toque táctil / clic
+        unlockAudioContexts();
+
         if (isConnected || isConnecting) {
           disconnect();
         } else {
           connect();
         }
-      });
+      };
+
+      heroBadge.addEventListener('click', handleUserTap);
     }
   });
 

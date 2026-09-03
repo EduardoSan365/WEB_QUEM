@@ -1,6 +1,6 @@
 /**
  * qüem Smart Shop — Asistente de Voz en Tiempo Real con Gemini Live API
- * Control 100% integrado en el icono de la 'ü' con temporizador de inactividad de 10s
+ * Integración nativa sin ventanas modales ni solicitud de claves a los usuarios
  */
 
 (() => {
@@ -45,8 +45,7 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
   };
 
   const STORAGE_KEY = 'GEMINI_LIVE_API_KEY';
-  const STORAGE_VOICE = 'GEMINI_LIVE_VOICE';
-  const STORAGE_MODEL = 'GEMINI_LIVE_MODEL';
+  let cachedApiKey = null;
 
   // --- ESTADO GLOBAL ---
   let isConnected = false;
@@ -68,28 +67,39 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
   let nextAudioStartTime = 0;
   let activeSources = [];
 
-  // Elementos DOM
+  // Elemento DOM
   let heroBadge = null;
-  let configModal = null;
-  let apiKeyInput = null;
-  let saveApiKeyBtn = null;
-  let closeConfigBtn = null;
 
-  // --- GETTERS / SETTERS ---
-  function getApiKey() {
-    return localStorage.getItem(STORAGE_KEY) || window.GEMINI_API_KEY || '';
+  // --- OBTENCIÓN TRANSPARENTE DE LA API KEY ---
+  async function getApiKey() {
+    if (cachedApiKey) return cachedApiKey;
+
+    const storedKey = localStorage.getItem(STORAGE_KEY) || window.GEMINI_API_KEY;
+    if (storedKey) {
+      cachedApiKey = storedKey;
+      return cachedApiKey;
+    }
+
+    // Consultar endpoint serverless de Vercel (variable de entorno GEMINI_API_KEY)
+    try {
+      const res = await fetch('/api/get-key');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.apiKey) {
+          cachedApiKey = data.apiKey;
+          return cachedApiKey;
+        }
+      }
+    } catch (e) {
+      console.warn('[qüem Live] No se pudo obtener la clave desde /api/get-key:', e);
+    }
+
+    return '';
   }
 
   function setApiKey(key) {
-    localStorage.setItem(STORAGE_KEY, key.trim());
-  }
-
-  function getSelectedModel() {
-    return localStorage.getItem(STORAGE_MODEL) || DEFAULT_CONFIG.primaryModel;
-  }
-
-  function getSelectedVoice() {
-    return localStorage.getItem(STORAGE_VOICE) || DEFAULT_CONFIG.voice;
+    cachedApiKey = key.trim();
+    localStorage.setItem(STORAGE_KEY, cachedApiKey);
   }
 
   // --- HELPERS DE AUDIO ---
@@ -151,12 +161,12 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
     return float32;
   }
 
-  // --- TEMPORIZADOR DE SILENCIO / INACTIVIDAD (10 SEGUNDOS) ---
+  // --- TEMPORIZADOR DE SILENCIO (10s) ---
   function resetSilenceTimer() {
     if (silenceTimer) clearTimeout(silenceTimer);
     if (isConnected) {
       silenceTimer = setTimeout(() => {
-        console.log('[qüem Live] Apagado automático por 10 segundos de inactividad.');
+        console.log('[qüem Live] Desconexión por 10 segundos de silencio.');
         disconnect();
       }, DEFAULT_CONFIG.silenceTimeoutMs);
     }
@@ -206,7 +216,7 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
     activeSources.push(source);
 
     updateSpeakingState(true);
-    clearSilenceTimer(); // Mientras la IA habla no corre el temporizador de silencio
+    clearSilenceTimer();
 
     source.onended = () => {
       const idx = activeSources.indexOf(source);
@@ -215,12 +225,12 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
       if (activeSources.length === 0 && isConnected) {
         nextAudioStartTime = outputAudioContext ? outputAudioContext.currentTime : 0;
         updateSpeakingState(false);
-        resetSilenceTimer(); // Comienza la cuenta de 10s cuando la IA termina de hablar
+        resetSilenceTimer();
       }
     };
   }
 
-  // --- ACTUALIZACIÓN DE ESTADOS VISUALES DEL LOGO 'ü' ---
+  // --- ESTADOS VISUALES DEL LOGO 'ü' ---
   function updateSpeakingState(speaking) {
     isModelSpeaking = speaking;
     if (heroBadge) {
@@ -241,7 +251,7 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
     if (heroBadge) {
       if (active) {
         heroBadge.classList.add('vapi-active', 'gemini-active', 'gemini-listening');
-        heroBadge.title = 'qüem IA escuchando • Toca para cortar';
+        heroBadge.title = 'qüem IA activa • Toca para cortar';
       } else {
         heroBadge.classList.remove('vapi-active', 'gemini-active', 'gemini-speaking', 'gemini-listening');
         heroBadge.title = 'Toca la ü para hablar con el Asistente IA de qüem';
@@ -249,7 +259,7 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
     }
   }
 
-  // --- ENTRADA DE AUDIO (MICRÓFONO) ---
+  // --- ENTRADA DE AUDIO ---
   async function startAudioInput() {
     mediaStream = await navigator.mediaDevices.getUserMedia({
       audio: {
@@ -269,14 +279,12 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
     audioProcessor.onaudioprocess = (e) => {
       if (!isConnected || !ws || ws.readyState !== WebSocket.OPEN) return;
 
-      // Durante la reproducción de voz de la IA, pausamos el envío de audio para evitar eco
       if (isModelSpeaking && activeSources.length > 0) {
         return;
       }
 
       const inputData = e.inputBuffer.getChannelData(0);
 
-      // Detección simple de actividad de voz para reiniciar el temporizador de 10s
       let hasSound = false;
       for (let i = 0; i < inputData.length; i += 16) {
         if (Math.abs(inputData[i]) > 0.02) {
@@ -321,22 +329,23 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
     activeSources = [];
   }
 
-  // --- CONEXIÓN PRINCIPAL GEMINI LIVE CON FALLBACK ---
+  // --- CONEXIÓN PRINCIPAL GEMINI LIVE ---
   async function connect(targetModel = null) {
-    const apiKey = getApiKey();
-    if (!apiKey) {
-      showConfigModal();
-      return;
-    }
-
     if (isConnecting || isConnected) return;
 
     isConnecting = true;
-    currentAttemptModel = targetModel || getSelectedModel();
+    currentAttemptModel = targetModel || DEFAULT_CONFIG.primaryModel;
 
     if (heroBadge) heroBadge.classList.add('gemini-active');
 
     try {
+      const apiKey = await getApiKey();
+      if (!apiKey) {
+        console.error('[qüem Live] GEMINI_API_KEY no encontrada. Configúrala en Vercel o en el proyecto.');
+        disconnect();
+        return;
+      }
+
       setupAudioOutput();
       if (outputAudioContext.state === 'suspended') await outputAudioContext.resume();
 
@@ -344,17 +353,14 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
       if (inputAudioContext.state === 'suspended') await inputAudioContext.resume();
 
       const version = DEFAULT_CONFIG.apiVersion;
-      const voice = getSelectedVoice();
+      const voice = DEFAULT_CONFIG.voice;
       const wsUrl = `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.${version}.GenerativeService.BidiGenerateContent?key=${apiKey}`;
 
-      console.log(`[qüem Live] Conectando con ${currentAttemptModel} | Voz: ${voice}`);
       ws = new WebSocket(wsUrl);
 
       let handshakeDone = false;
 
       ws.onopen = () => {
-        console.log('[qüem Live] WebSocket abierto. Enviando setup inicial...');
-
         const setupMessage = {
           setup: {
             model: currentAttemptModel,
@@ -385,15 +391,12 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
           }
           const response = JSON.parse(textData);
 
-          // 1. Handshake inicial completado
           if (response.setupComplete) {
             handshakeDone = true;
             hasTriedFallback = false;
-            console.log(`[qüem Live] ¡Sesión establecida con éxito!`);
             updateCallState(true);
             resetSilenceTimer();
 
-            // Mensaje de bienvenida inicial
             if (DEFAULT_CONFIG.firstMessage) {
               const triggerMsg = {
                 clientContent: {
@@ -413,7 +416,6 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
             return;
           }
 
-          // 2. Transmisión y reproducción de voz
           if (response.serverContent) {
             const { modelTurn, turnComplete, interrupted } = response.serverContent;
 
@@ -426,9 +428,6 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
                 if (part.inlineData && part.inlineData.data) {
                   const float32Data = base64ToFloat32Array(part.inlineData.data);
                   playAudioChunk(float32Data);
-                }
-                if (part.text) {
-                  console.log('[qüem Live]:', part.text);
                 }
               }
             }
@@ -453,16 +452,12 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
       };
 
       ws.onclose = (event) => {
-        console.log(`[qüem Live] Conexión cerrada. Código: ${event.code}`);
-
-        // Fallback automático en caso de fallo de modelo inicial
         if (!handshakeDone && !hasTriedFallback) {
           hasTriedFallback = true;
           const fallback = (currentAttemptModel === DEFAULT_CONFIG.primaryModel) 
             ? DEFAULT_CONFIG.fallbackModel 
             : DEFAULT_CONFIG.primaryModel;
 
-          console.log(`[qüem Live] Reintentando con modelo fallback: ${fallback}...`);
           cleanupResources();
           setTimeout(() => {
             isConnecting = false;
@@ -471,12 +466,7 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
           return;
         }
 
-        if (!handshakeDone) {
-          disconnect();
-          showConfigModal();
-        } else {
-          disconnect();
-        }
+        disconnect();
       };
 
     } catch (err) {
@@ -525,73 +515,10 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
     updateCallState(false);
   }
 
-  // --- MODAL DE CONFIGURACIÓN DE API KEY (SOLO SI NO ESTÁ GUARDADA) ---
-  function showConfigModal() {
-    if (!configModal) return;
-    apiKeyInput.value = getApiKey();
-    configModal.classList.add('active');
-    setTimeout(() => apiKeyInput.focus(), 100);
-  }
-
-  function hideConfigModal() {
-    if (configModal) configModal.classList.remove('active');
-  }
-
-  // --- INYECCIÓN DEL MODAL EN EL DOM (SIN WIDGET FLOTANTE) ---
-  function injectUI() {
-    const modal = document.createElement('div');
-    modal.id = 'quemApiKeyModal';
-    modal.className = 'quem-modal-backdrop';
-    modal.innerHTML = `
-      <div class="quem-modal-card">
-        <div class="quem-modal-header">
-          <h3>🎙️ Activar Asistente de Voz Gemini Live</h3>
-          <button type="button" class="quem-modal-close" id="quemCloseModalBtn">✕</button>
-        </div>
-        <p class="quem-modal-desc">
-          Ingresa tu <strong>Gemini API Key</strong> de Google AI Studio para conversar en tiempo real con la IA de <strong>qüem Smart Shop</strong>.
-        </p>
-        <div class="quem-modal-input-group">
-          <input type="password" id="quemApiKeyInput" placeholder="AIzaSy..." autocomplete="off" />
-        </div>
-        <div class="quem-modal-footer">
-          <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="quem-link-key">
-            Obtener clave en Google AI Studio ↗
-          </a>
-          <button type="button" id="quemSaveApiKeyBtn" class="quem-btn-save">
-            Guardar y Conectar
-          </button>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(modal);
-
-    configModal = modal;
-    apiKeyInput = document.getElementById('quemApiKeyInput');
-    saveApiKeyBtn = document.getElementById('quemSaveApiKeyBtn');
-    closeConfigBtn = document.getElementById('quemCloseModalBtn');
-
-    saveApiKeyBtn.addEventListener('click', () => {
-      const key = apiKeyInput.value.trim();
-      if (key) {
-        setApiKey(key);
-        hideConfigModal();
-        connect();
-      } else {
-        alert('Por favor ingresa una clave de API válida.');
-      }
-    });
-
-    closeConfigBtn.addEventListener('click', hideConfigModal);
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) hideConfigModal();
-    });
-  }
-
   // --- INICIALIZACIÓN ---
   window.addEventListener('DOMContentLoaded', () => {
-    injectUI();
+    // Pre-cargar la clave en segundo plano
+    getApiKey();
 
     heroBadge = document.querySelector('.hero-live-badge');
 
@@ -613,7 +540,6 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
     connect,
     disconnect,
     setApiKey,
-    getApiKey,
-    showConfigModal
+    getApiKey
   };
 })();

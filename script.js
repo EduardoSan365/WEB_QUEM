@@ -251,15 +251,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================================
-  // Store Photo Slider Carousel Logic (Transición tipo diapositiva)
+  // Store Photo Slider Carousel Logic con Hotspots Interactivos & 3D Tilt
   // ==========================================================================
   const sliderContainer = document.getElementById('heroStoreSlider');
   if (sliderContainer) {
     const slides = sliderContainer.querySelectorAll('.slide-item');
     const dots = sliderContainer.querySelectorAll('.slider-dot');
+    const hotspots = sliderContainer.querySelectorAll('.store-hotspot');
     let currentSlide = 0;
     let slideInterval = null;
-    const slideDuration = 4500; // 4.5 segundos por diapositiva
+    const slideDuration = 5000; // 5 segundos por diapositiva
 
     const goToSlide = (index) => {
       slides[currentSlide].classList.remove('active');
@@ -299,7 +300,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Pause on hover
     sliderContainer.addEventListener('mouseenter', stopAutoplay);
-    sliderContainer.addEventListener('mouseleave', startAutoplay);
+    sliderContainer.addEventListener('mouseleave', () => {
+      // Solo reanudar si no hay hotspot activo abierto
+      const hasActiveHotspot = sliderContainer.querySelector('.store-hotspot.active');
+      if (!hasActiveHotspot) {
+        startAutoplay();
+      }
+    });
+
+    // --- INTERACTIVIDAD HOTSPOTS (Click & Touch) ---
+    hotspots.forEach((spot) => {
+      spot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const wasActive = spot.classList.contains('active');
+
+        // Cerrar todos los demás
+        hotspots.forEach(s => s.classList.remove('active'));
+
+        if (!wasActive) {
+          spot.classList.add('active');
+          stopAutoplay();
+        } else {
+          startAutoplay();
+        }
+      });
+    });
+
+    // Cerrar hotspots al hacer clic fuera del slider
+    document.addEventListener('click', (e) => {
+      if (!sliderContainer.contains(e.target)) {
+        hotspots.forEach(s => s.classList.remove('active'));
+        startAutoplay();
+      }
+    });
+
+    // --- EFECTO TILT 3D INTERACTIVO CON EL CURSOR ---
+    const visualArea = document.querySelector('.hero-structure-visual');
+    if (visualArea && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      visualArea.addEventListener('mousemove', (e) => {
+        const rect = visualArea.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        const rotateX = -(y / rect.height) * 12; // máx 6 grados
+        const rotateY = (x / rect.width) * 12;
+
+        sliderContainer.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
+      });
+
+      visualArea.addEventListener('mouseleave', () => {
+        sliderContainer.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    }
 
     // Start auto slide
     startAutoplay();

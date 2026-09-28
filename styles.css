@@ -848,6 +848,299 @@ a {
   pointer-events: none;
 }
 
+/* ==========================================================================
+   HUD Cyber-Scanner & Hotspots Interactivos (Tienda Futurista)
+   ========================================================================== */
+.hero-modern-display {
+  perspective: 1200px;
+}
+
+.store-slider-container {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* Scanner HUD Overlay */
+.store-hud-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.hud-top-bar {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  right: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 12;
+}
+
+.hud-live-tag,
+.hud-metric-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono, monospace, sans-serif);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  text-transform: uppercase;
+}
+
+.hud-live-tag {
+  background: rgba(8, 14, 26, 0.8);
+  border: 1px solid rgba(0, 249, 255, 0.45);
+  color: #00f9ff;
+  box-shadow: 0 0 12px rgba(0, 249, 255, 0.2);
+}
+
+.hud-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00f9ff;
+  box-shadow: 0 0 8px #00f9ff;
+  animation: hudDotPulse 1.2s infinite alternate;
+}
+
+.hud-metric-tag {
+  background: rgba(8, 14, 26, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+}
+
+@keyframes hudDotPulse {
+  0% { opacity: 0.4; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.3); }
+}
+
+/* Laser Scan Line */
+.hud-scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 249, 255, 0.2) 20%, rgba(0, 249, 255, 0.9) 50%, rgba(0, 249, 255, 0.2) 80%, transparent 100%);
+  box-shadow: 0 0 14px rgba(0, 249, 255, 0.7), 0 0 28px rgba(0, 249, 255, 0.35);
+  animation: hudLaserScan 5.5s infinite ease-in-out;
+  opacity: 0.75;
+}
+
+@keyframes hudLaserScan {
+  0% { top: 0%; opacity: 0; }
+  12% { opacity: 0.85; }
+  88% { opacity: 0.85; }
+  100% { top: 100%; opacity: 0; }
+}
+
+/* Hotspots Layer */
+.store-hotspots-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 22;
+  pointer-events: none;
+}
+
+.store-hotspot {
+  position: absolute;
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 24;
+  transform: translate(-50%, -50%);
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.store-hotspot.hotspot-door { left: 25%; top: 48%; }
+.store-hotspot.hotspot-vision { left: 66%; top: 26%; }
+.store-hotspot.hotspot-payment { left: 46%; top: 64%; }
+.store-hotspot.hotspot-freezer { left: 80%; top: 56%; }
+
+/* Beacon Pulse */
+.hotspot-beacon {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.store-hotspot:hover .hotspot-beacon,
+.store-hotspot.active .hotspot-beacon {
+  transform: scale(1.25);
+}
+
+.beacon-core {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(10, 18, 32, 0.92);
+  border: 2px solid #00f9ff;
+  color: #00f9ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  box-shadow: 0 0 14px rgba(0, 249, 255, 0.75);
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.beacon-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 249, 255, 0.65);
+  animation: beaconExpand 2s infinite ease-out;
+  pointer-events: none;
+}
+
+.beacon-ring.ring-purple { border-color: rgba(167, 139, 250, 0.7); }
+.beacon-core.core-purple { border-color: #a78bfa; color: #a78bfa; box-shadow: 0 0 14px rgba(167, 139, 250, 0.7); }
+
+.beacon-ring.ring-green { border-color: rgba(52, 211, 153, 0.7); }
+.beacon-core.core-green { border-color: #34d399; color: #34d399; box-shadow: 0 0 14px rgba(52, 211, 153, 0.7); }
+
+.beacon-ring.ring-cyan { border-color: rgba(0, 242, 254, 0.7); }
+.beacon-core.core-cyan { border-color: #00f2fe; color: #00f2fe; box-shadow: 0 0 14px rgba(0, 242, 254, 0.7); }
+
+@keyframes beaconExpand {
+  0% { transform: scale(0.6); opacity: 1; }
+  100% { transform: scale(1.75); opacity: 0; }
+}
+
+/* Hotspot Card Hologram */
+.hotspot-card {
+  position: absolute;
+  width: 195px;
+  background: rgba(8, 14, 26, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 249, 255, 0.45);
+  border-radius: 12px;
+  padding: 0.65rem 0.8rem;
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 249, 255, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 30;
+  text-align: left;
+}
+
+/* Safe positioning so cards never leave the bounds */
+.store-hotspot.hotspot-door .hotspot-card {
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) translateX(-8px) scale(0.92);
+}
+
+.store-hotspot.hotspot-vision .hotspot-card {
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px) scale(0.92);
+}
+
+.store-hotspot.hotspot-payment .hotspot-card {
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px) scale(0.92);
+}
+
+.store-hotspot.hotspot-freezer .hotspot-card {
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) translateX(8px) scale(0.92);
+}
+
+.store-hotspot:hover .hotspot-card,
+.store-hotspot.active .hotspot-card {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.store-hotspot.hotspot-door:hover .hotspot-card,
+.store-hotspot.hotspot-door.active .hotspot-card {
+  transform: translateY(-50%) translateX(0) scale(1);
+}
+
+.store-hotspot.hotspot-vision:hover .hotspot-card,
+.store-hotspot.hotspot-vision.active .hotspot-card {
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.store-hotspot.hotspot-payment:hover .hotspot-card,
+.store-hotspot.hotspot-payment.active .hotspot-card {
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.store-hotspot.hotspot-freezer:hover .hotspot-card,
+.store-hotspot.hotspot-freezer.active .hotspot-card {
+  transform: translateY(-50%) translateX(0) scale(1);
+}
+
+.hotspot-card-badge {
+  display: inline-block;
+  font-family: var(--font-mono, monospace, sans-serif);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background: rgba(0, 249, 255, 0.15);
+  color: #00f9ff;
+  border: 1px solid rgba(0, 249, 255, 0.35);
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+}
+
+.hotspot-card-badge.badge-purple {
+  background: rgba(167, 139, 250, 0.15);
+  color: #c4b5fd;
+  border-color: rgba(167, 139, 250, 0.35);
+}
+
+.hotspot-card-badge.badge-green {
+  background: rgba(52, 211, 153, 0.15);
+  color: #6ee7b7;
+  border-color: rgba(52, 211, 153, 0.35);
+}
+
+.hotspot-card-badge.badge-cyan {
+  background: rgba(0, 242, 254, 0.15);
+  color: #67e8f9;
+  border-color: rgba(0, 242, 254, 0.35);
+}
+
+.hotspot-card h5 {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.2rem 0;
+  line-height: 1.2;
+}
+
+.hotspot-card p {
+  font-size: 0.7rem;
+  color: #cbd5e1;
+  margin: 0;
+  line-height: 1.35;
+}
+
 /* Slider Indicators / Dots */
 .slider-indicators {
   position: absolute;

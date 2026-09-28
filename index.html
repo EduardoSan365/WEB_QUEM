@@ -72,8 +72,14 @@
           <div class="hero-structure-content">
             <!-- Lockup: Icono animado transparente ü con marco circular + Wordmark qüem SMART SHOP -->
             <div class="hero-brand-lockup">
-              <div class="hero-live-badge">
-                <img src="assets/quem-animated-u.svg" alt="qüem Icono" class="hero-badge-gif">
+              <div class="hero-live-badge-group">
+                <div class="hero-live-badge" role="button" tabindex="0" aria-label="Hablar con qüem IA">
+                  <img src="assets/quem-animated-u.svg" alt="qüem Icono" class="hero-badge-gif">
+                </div>
+                <div class="hero-live-status-pill" id="heroLiveStatusPill" role="button" tabindex="0" aria-label="Estado del asistente qüem IA">
+                  <span class="status-pulse-dot"></span>
+                  <span class="status-text">Hablá con nuestra IA</span>
+                </div>
               </div>
               <img src="assets/quem-wordmark.png" alt="qüem Smart Shop" class="hero-brand-wordmark">
             </div>
@@ -556,7 +562,7 @@
   </div>
 
   <!-- Gemini Multimodal Live Voice Assistant (Nativo - Activación por logo 'ü') -->
-  <script src="gemini-live.js?v=3.2"></script>
+  <script src="gemini-live.js?v=4.2"></script>
   <script src="script.js?v=5.2"></script>
 </body>
 

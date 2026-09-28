@@ -16,3 +16,6 @@ Thumbs.db
 # Archivos de prueba / scripts temporales
 generate_preview.js
 preview-*.html
+
+.vercel
+.env*

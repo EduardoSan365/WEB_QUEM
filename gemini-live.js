@@ -356,12 +356,11 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
     };
   }
 
-  // --- ESTADOS VISUALES DEL LOGO 'ü' Y PILL INTERACTIVO ---
+  // --- ESTADOS VISUALES DEL LOGO 'ü' Y MICRO-INDICADOR ---
   function updateStatusPill(text, className = '') {
     if (!heroStatusPill) return;
-    const textEl = heroStatusPill.querySelector('.status-text');
-    if (textEl) textEl.textContent = text;
-    heroStatusPill.className = 'hero-live-status-pill' + (className ? ' ' + className : '');
+    heroStatusPill.textContent = text;
+    heroStatusPill.className = 'hero-live-micro-label' + (className ? ' ' + className : '');
   }
 
   function updateSpeakingState(speaking) {
@@ -376,9 +375,9 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
       }
     }
     if (speaking) {
-      updateStatusPill('qüem IA hablando...', 'speaking');
+      updateStatusPill('Hablando...', 'speaking');
     } else if (isConnected) {
-      updateStatusPill('Te escucho... hablá', 'listening');
+      updateStatusPill('Escuchando...', 'listening');
     }
   }
 
@@ -594,7 +593,7 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
       heroBadge.classList.add('gemini-active');
       heroBadge.title = 'Conectando con qüem IA...';
     }
-    updateStatusPill('Conectando en vivo...', 'connecting');
+    updateStatusPill('Conectando...', 'connecting');
 
     try {
       // Obtener API Key de inmediato (cacheada)
@@ -678,7 +677,7 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
             log('✅ Handshake completado con modelo:', currentAttemptModel);
 
             if (DEFAULT_CONFIG.firstMessage) {
-              updateStatusPill('qüem IA hablando...', 'speaking');
+              updateStatusPill('Hablando...', 'speaking');
               const triggerMsg = {
                 clientContent: {
                   turns: [
@@ -694,7 +693,7 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
               };
               ws.send(JSON.stringify(triggerMsg));
             } else {
-              updateStatusPill('Te escucho... hablá', 'listening');
+              updateStatusPill('Escuchando...', 'listening');
             }
             return;
           }
@@ -720,7 +719,7 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
                 if (activeSources.length === 0 && isConnected) {
                   nextAudioStartTime = outputAudioContext ? outputAudioContext.currentTime : 0;
                   updateSpeakingState(false);
-                  updateStatusPill('Te escucho... hablá', 'listening');
+                  updateStatusPill('Escuchando...', 'listening');
                   resetSilenceTimer();
                 }
               }, 60);
@@ -817,7 +816,7 @@ Tono: Español rioplatense/latino natural, profesional, moderno y muy agradable.
     preloadApiKey();
 
     heroBadge = document.querySelector('.hero-live-badge');
-    heroStatusPill = document.querySelector('.hero-live-status-pill');
+    heroStatusPill = document.querySelector('.hero-live-micro-label') || document.querySelector('.hero-live-status-pill');
 
     const handleUserTap = (e) => {
       e.preventDefault();

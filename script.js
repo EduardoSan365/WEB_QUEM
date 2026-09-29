@@ -334,25 +334,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // --- EFECTO TILT 3D INTERACTIVO CON EL CURSOR ---
-    const visualArea = document.querySelector('.hero-structure-visual');
-    if (visualArea && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
-      visualArea.addEventListener('mousemove', (e) => {
-        const rect = visualArea.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-
-        const rotateX = -(y / rect.height) * 12; // máx 6 grados
-        const rotateY = (x / rect.width) * 12;
-
-        sliderContainer.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
-      });
-
-      visualArea.addEventListener('mouseleave', () => {
-        sliderContainer.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-      });
-    }
-
     // Start auto slide
     startAutoplay();
   }

@@ -465,118 +465,8 @@ a {
   margin-bottom: 1.6rem;
 }
 
-.hero-live-badge-group {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.45rem;
-  position: relative;
-}
-
-.hero-live-status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.28rem 0.75rem;
-  background: rgba(10, 20, 38, 0.85);
-  border: 1px solid rgba(0, 249, 255, 0.35);
-  border-radius: 9999px;
-  font-family: var(--font-body, system-ui, sans-serif);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: #e2e8f0;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), 0 0 12px rgba(0, 249, 255, 0.15);
-  cursor: pointer;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-  white-space: nowrap;
-}
-
-.hero-live-status-pill:hover {
-  transform: translateY(-1px) scale(1.04);
-  border-color: rgba(0, 249, 255, 0.75);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5), 0 0 16px rgba(0, 249, 255, 0.35);
-  color: #ffffff;
-}
-
-.hero-live-status-pill:active {
-  transform: scale(0.96);
-}
-
-.hero-live-status-pill .status-pulse-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #00f9ff;
-  box-shadow: 0 0 8px #00f9ff;
-  animation: livePulseDot 2s infinite ease-in-out;
-  flex-shrink: 0;
-}
-
-/* Modos de Estado del Pill */
-.hero-live-status-pill.connecting {
-  border-color: rgba(251, 191, 36, 0.7);
-  background: rgba(251, 191, 36, 0.15);
-  color: #fef3c7;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), 0 0 14px rgba(251, 191, 36, 0.3);
-}
-.hero-live-status-pill.connecting .status-pulse-dot {
-  background: #fbbf24;
-  box-shadow: 0 0 10px #fbbf24;
-  animation: livePulseFast 0.6s infinite alternate;
-}
-
-.hero-live-status-pill.speaking {
-  border-color: rgba(167, 139, 250, 0.85);
-  background: rgba(167, 139, 250, 0.18);
-  color: #f5f3ff;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 20px rgba(167, 139, 250, 0.4);
-}
-.hero-live-status-pill.speaking .status-pulse-dot {
-  background: #c084fc;
-  box-shadow: 0 0 12px #c084fc;
-  animation: livePulseFast 0.5s infinite alternate;
-}
-
-.hero-live-status-pill.listening {
-  border-color: rgba(52, 211, 153, 0.8);
-  background: rgba(16, 185, 129, 0.16);
-  color: #d1fae5;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), 0 0 16px rgba(52, 211, 153, 0.35);
-}
-.hero-live-status-pill.listening .status-pulse-dot {
-  background: #10b981;
-  box-shadow: 0 0 10px #10b981;
-  animation: livePulseDot 1.2s infinite ease-in-out;
-}
-
-.hero-live-status-pill.error {
-  border-color: rgba(248, 113, 113, 0.85);
-  background: rgba(239, 68, 68, 0.18);
-  color: #fee2e2;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4), 0 0 16px rgba(248, 113, 113, 0.35);
-}
-.hero-live-status-pill.error .status-pulse-dot {
-  background: #ef4444;
-  box-shadow: 0 0 10px #ef4444;
-  animation: none;
-}
-
-@keyframes livePulseDot {
-  0%, 100% { transform: scale(1); opacity: 0.85; }
-  50% { transform: scale(1.35); opacity: 1; filter: drop-shadow(0 0 6px currentColor); }
-}
-
-@keyframes livePulseFast {
-  0% { transform: scale(0.9); opacity: 0.7; }
-  100% { transform: scale(1.4); opacity: 1; filter: drop-shadow(0 0 8px currentColor); }
-}
-
 .hero-live-badge {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -593,6 +483,43 @@ a {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+}
+
+/* Micro-indicador centrado estrictamente debajo de la U (sin desplazar el logo) */
+.hero-live-micro-label {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-body, system-ui, sans-serif);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease, color 0.25s ease;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+.hero-live-micro-label.connecting {
+  opacity: 1;
+  color: #fbbf24;
+}
+
+.hero-live-micro-label.speaking {
+  opacity: 1;
+  color: #c084fc;
+}
+
+.hero-live-micro-label.listening {
+  opacity: 1;
+  color: #34d399;
+}
+
+.hero-live-micro-label.error {
+  opacity: 1;
+  color: #f87171;
 }
 
 .hero-live-badge:hover {
@@ -849,100 +776,8 @@ a {
 }
 
 /* ==========================================================================
-   HUD Cyber-Scanner & Hotspots Interactivos (Tienda Futurista)
+   Hotspots Interactivos (Tienda Futurista)
    ========================================================================== */
-.hero-modern-display {
-  perspective: 1200px;
-}
-
-.store-slider-container {
-  transform-style: preserve-3d;
-  transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1);
-  will-change: transform;
-}
-
-/* Scanner HUD Overlay */
-.store-hud-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 8;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.hud-top-bar {
-  position: absolute;
-  top: 0.9rem;
-  left: 0.9rem;
-  right: 0.9rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 12;
-}
-
-.hud-live-tag,
-.hud-metric-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: var(--font-mono, monospace, sans-serif);
-  font-size: 0.64rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  padding: 0.25rem 0.6rem;
-  border-radius: 4px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  text-transform: uppercase;
-}
-
-.hud-live-tag {
-  background: rgba(8, 14, 26, 0.8);
-  border: 1px solid rgba(0, 249, 255, 0.45);
-  color: #00f9ff;
-  box-shadow: 0 0 12px rgba(0, 249, 255, 0.2);
-}
-
-.hud-pulse-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #00f9ff;
-  box-shadow: 0 0 8px #00f9ff;
-  animation: hudDotPulse 1.2s infinite alternate;
-}
-
-.hud-metric-tag {
-  background: rgba(8, 14, 26, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #cbd5e1;
-}
-
-@keyframes hudDotPulse {
-  0% { opacity: 0.4; transform: scale(0.8); }
-  100% { opacity: 1; transform: scale(1.3); }
-}
-
-/* Laser Scan Line */
-.hud-scan-line {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent 0%, rgba(0, 249, 255, 0.2) 20%, rgba(0, 249, 255, 0.9) 50%, rgba(0, 249, 255, 0.2) 80%, transparent 100%);
-  box-shadow: 0 0 14px rgba(0, 249, 255, 0.7), 0 0 28px rgba(0, 249, 255, 0.35);
-  animation: hudLaserScan 5.5s infinite ease-in-out;
-  opacity: 0.75;
-}
-
-@keyframes hudLaserScan {
-  0% { top: 0%; opacity: 0; }
-  12% { opacity: 0.85; }
-  88% { opacity: 0.85; }
-  100% { top: 100%; opacity: 0; }
-}
-
 /* Hotspots Layer */
 .store-hotspots-layer {
   position: absolute;

@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=2.9">
+  <link rel="stylesheet" href="styles.css?v=3.0">
 </head>
 
 <body>
@@ -72,14 +72,9 @@
           <div class="hero-structure-content">
             <!-- Lockup: Icono animado transparente ü con marco circular + Wordmark qüem SMART SHOP -->
             <div class="hero-brand-lockup">
-              <div class="hero-live-badge-group">
-                <div class="hero-live-badge" role="button" tabindex="0" aria-label="Hablar con qüem IA">
-                  <img src="assets/quem-animated-u.svg" alt="qüem Icono" class="hero-badge-gif">
-                </div>
-                <div class="hero-live-status-pill" id="heroLiveStatusPill" role="button" tabindex="0" aria-label="Estado del asistente qüem IA">
-                  <span class="status-pulse-dot"></span>
-                  <span class="status-text">Hablá con nuestra IA</span>
-                </div>
+              <div class="hero-live-badge" role="button" tabindex="0" aria-label="Hablar con qüem IA" title="Toca la ü para hablar con el Asistente IA de qüem">
+                <img src="assets/quem-animated-u.svg" alt="qüem Icono" class="hero-badge-gif">
+                <span class="hero-live-micro-label" id="heroLiveStatusPill" aria-live="polite"></span>
               </div>
               <img src="assets/quem-wordmark.png" alt="qüem Smart Shop" class="hero-brand-wordmark">
             </div>
@@ -121,15 +116,6 @@
                     <img src="assets/store-4.png" alt="qüem Smart Shop - Heladeras y Variedad de Congelados"
                       class="slide-img">
                     <div class="slide-overlay-gradient"></div>
-                  </div>
-                </div>
-
-                <!-- HUD Cyber Scanner Overlay (IA Vision en Vivo) -->
-                <div class="store-hud-overlay">
-                  <div class="hud-scan-line"></div>
-                  <div class="hud-top-bar">
-                    <span class="hud-live-tag"><span class="hud-pulse-dot"></span>IA STORE LIVE</span>
-                    <span class="hud-metric-tag"><i class="fa-solid fa-microchip"></i> AUTONOMOUS 24/7</span>
                   </div>
                 </div>
 
@@ -626,8 +612,8 @@
   </div>
 
   <!-- Gemini Multimodal Live Voice Assistant (Nativo - Activación por logo 'ü') -->
-  <script src="gemini-live.js?v=4.2"></script>
-  <script src="script.js?v=5.3"></script>
+  <script src="gemini-live.js?v=4.3"></script>
+  <script src="script.js?v=5.4"></script>
 </body>
 
 </html>
